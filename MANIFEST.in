@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include idelta_website *.css
+recursive-include idelta_website *.csv
+recursive-include idelta_website *.html
+recursive-include idelta_website *.ico
+recursive-include idelta_website *.js
+recursive-include idelta_website *.json
+recursive-include idelta_website *.md
+recursive-include idelta_website *.png
+recursive-include idelta_website *.py
+recursive-include idelta_website *.svg
+recursive-include idelta_website *.txt
+recursive-exclude idelta_website *.pyc
