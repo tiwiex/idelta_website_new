@@ -1,0 +1,178 @@
+#header.header-scrolled,
+#header.header-inner-pages {
+  /*background: rgba(24, 6, 185, 0.8); */
+  background: rgba(185, 51, 6, 0.8);
+  padding: 12px 0;
+}
+
+/*--------------------------------------------------------------
+# Inner Header Section
+--------------------------------------------------------------*/
+#inner_header {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(45deg, rgba(86, 58, 250, 0.1) 0%, rgba(116, 15, 214, 0.9) 100%), url("../img/4.jpg") center center no-repeat;
+  background-size: cover;
+}
+
+.header-image {
+  width: 100%;
+  height: 300px; /* Adjust the height to your specific value */
+  object-fit: cover;
+}
+
+.counts {
+    /*background: linear-gradient(90deg, rgba(185, 51, 6, 0.8) 0%, rgba(238, 161, 135, 0.8) 100%), url("../img/counts-bg.png") center center no-repeat;*/
+    /*background: rgba(185, 51, 6, 0.8);*/
+    background: linear-gradient(to bottom, rgba(255,0,0,0), rgba(185,51,6,0.8));
+    padding: 80px 0 60px 0;
+  }
+
+  .features .icon-box h4 {
+    font-size: 10px;
+    font-weight: 700;
+    margin: 5px 0 10px 60px;
+  }
+
+  .features .icon-box i {
+    font-size: 48px;
+    float: left;
+    color: rgba(185,51,6,0.8)
+  }
+
+.pricing .silver h3 {
+    color: #fff;
+    background: #bbc2cc;
+  }
+.pricing .gold h3 {
+    color: #fff;
+    background: #daa520;
+  }
+.pricing .platinum h3 {
+    color: #fff;
+    background: #C0C0C0;
+  }
+
+  .pricing h4 {
+    font-size: 36px;
+    color: rgba(185, 51, 6, 0.8);
+    font-weight: 600;
+    font-family: "Roboto", sans-serif;
+    margin-bottom: 20px;
+  }
+
+
+  .pricing .advanced {
+    width: 200px;
+    position: absolute;
+    top: 18px;
+    right: -68px;
+    transform: rotate(45deg);
+    z-index: 1;
+    font-size: 14px;
+    padding: 1px 0 3px 0;
+    background: #daa520;
+    color: #fff;
+  }
+
+  .pricing .btn-silver {
+    background: linear-gradient(42deg, #bbc2cc 0%, #bbc2cc 100%);
+    display: inline-block;
+    padding: 10px 35px;
+    border-radius: 4px;
+    color: #fff;
+    transition: none;
+    font-size: 15px;
+    font-weight: 400;
+    font-family: "Roboto", sans-serif;
+    font-weight: 600;
+    transition: 0.3s;
+  }
+
+  .pricing .btn-gold {
+    background: linear-gradient(42deg, #daa520 0%, #daa520 100%);
+    display: inline-block;
+    padding: 10px 35px;
+    border-radius: 4px;
+    color: #fff;
+    transition: none;
+    font-size: 15px;
+    font-weight: 400;
+    font-family: "Roboto", sans-serif;
+    font-weight: 600;
+    transition: 0.3s;
+  }
+
+
+  .pricing .btn-platinum {
+    background: linear-gradient(42deg, #C0C0C0 0%, #C0C0C0 100%);
+    display: inline-block;
+    padding: 10px 35px;
+    border-radius: 4px;
+    color: #fff;
+    transition: none;
+    font-size: 15px;
+    font-weight: 400;
+    font-family: "Roboto", sans-serif;
+    font-weight: 600;
+    transition: 0.3s;
+  }
+
+  .testimonials .testimonial-item .quote-icon-left,
+.testimonials .testimonial-item .quote-icon-right {
+  color: rgba(185, 51, 6, 0.8);
+  font-size: 26px;
+}
+
+.testimonials .swiper-pagination .swiper-pagination-bullet {
+    width: 12px;
+    height: 12px;
+    background-color: #fff;
+    opacity: 1;
+    border: 1px solid rgba(185, 51, 6, 0.8);
+  }
+
+  .testimonials .swiper-pagination .swiper-pagination-bullet-active {
+    background-color: rgba(185, 51, 6, 0.8);
+  }
+
+  .section-title h2::after {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 50px;
+    height: 3px;
+    background: rgba(185, 51, 6, 0.8);
+    bottom: 0;
+    left: calc(50% - 25px);
+  }
+
+  .portfolio #portfolio-flters li:hover,
+.portfolio #portfolio-flters li.filter-active {
+  color: #fff;
+  background: rgba(185, 51, 6, 0.8);
+}
+
+.contact .info-box i {
+    font-size: 32px;
+    color: rgba(185, 51, 6, 0.8);
+    border-radius: 50%;
+    padding: 8px;
+  }
+
+  .faq {
+    /*background: linear-gradient(42deg, rgba(185, 51, 6, 0.8) 0%, rgba(100, 51, 6, 0.8) 100%);*/
+    background: linear-gradient(to bottom, rgba(255,0,0,0), rgba(185,51,6,0.8));
+  }
+
+.faq .section-title h2,
+.faq .section-title p {
+  color: #000;
+}
+
+#footer {
+    color: #fff;
+    font-size: 14px;
+    background: linear-gradient(to bottom, rgba(255,0,0,0), rgba(185,51,6,0.8));
+    background-size: cover;
+  }

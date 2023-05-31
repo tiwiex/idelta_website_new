@@ -4,8 +4,8 @@ from . import __version__ as app_version
 
 app_name = "idelta_website"
 app_title = "Idelta Website"
-app_publisher = "Taiwo Akinosho"
-app_description = "Idelta Website"
+app_publisher = "Tiwiex"
+app_description = "Website for Idelta"
 app_icon = "octicon octicon-file-directory"
 app_color = "grey"
 app_email = "tiwiex@yahoo.com"
@@ -15,8 +15,13 @@ app_license = "MIT"
 # ------------------
 
 # include js, css files in header of desk.html
-# app_include_css = "/assets/idelta_website/css/idelta_website.css"
-# app_include_js = "/assets/idelta_website/js/idelta_website.js"
+app_include_css = "/assets/idelta_website/css/idelta_website.css"
+app_include_js = "/assets/idelta_website/js/idelta_website.js"
+
+
+website_routes = [
+    "routes.routes"
+]
 
 # include js, css files in header of web template
 # web_include_css = "/assets/idelta_website/css/idelta_website.css"
@@ -113,17 +118,29 @@ app_license = "MIT"
 
 # before_tests = "idelta_website.install.before_tests"
 
-# Overriding Methods
+# Overriding Whitelisted Methods
 # ------------------------------
 #
 # override_whitelisted_methods = {
 # 	"frappe.desk.doctype.event.event.get_events": "idelta_website.event.get_events"
 # }
-#
-# each overriding function accepts a `data` argument;
-# generated from the base implementation of the doctype dashboard,
-# along with any modifications made in other Frappe apps
-# override_doctype_dashboards = {
-# 	"Task": "idelta_website.task.get_dashboard_data"
-# }
+print("Hooks file executed Again!")
+def get_website_routes():
+    return [
+        {
+            "route": "/",
+            "name": "my_pages",
+            "page": "my_pages",
+            "render": "my_pages.my_pages",
+        }
+    ]
+
+
+website_context = {
+  'footer': 'Agiliq Info Solutions',
+  "site_config_context_variable": "This is foo.bar!"
+}
+print(website_routes)
+#website_routes = get_website_routes()
+
 

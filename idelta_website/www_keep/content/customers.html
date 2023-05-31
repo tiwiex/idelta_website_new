@@ -1,0 +1,6 @@
+<h3>List of Customers</h3>
+<ol>
+{% for customer in customers %}
+    <li>{{ customer.customer_name }} {{ customer.get("gender", "") }}</li>
+{% endfor %}
+</ol>
