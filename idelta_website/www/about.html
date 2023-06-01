@@ -1,0 +1,69 @@
+
+{% extends 'templates/techie_base.html' %}
+{% block hero %}
+{% include 'templates/inner_header.html' %}
+
+{% endblock %}
+
+{% block content%}
+
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-lg-6 order-1 order-lg-2" data-aos="zoom-in" data-aos-delay="150">
+            <img src="/assets/idelta_website/techie/img/about.jpg" class="img-fluid" alt="">
+          </div>
+          <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content" data-aos="fade-right">
+            <h3>Our History</h3>
+            <p class="fst-italic">
+              The company was incorporated in 2008 with the fulfilled dream of providing Internet services to the homes through fibre. This has been largely achieved with expansion going on.
+
+The company keeps expanding with a recent focus on providing IP TV to the homes through strategic partnerships.
+            </p>
+            <ul>
+              <li><i class="bi bi-check-circle"></i> Professionalism</li>
+              <li><i class="bi bi-check-circle"></i> Reliability</li>
+              <li><i class="bi bi-check-circle"></i> Loyalty to our customer base</li>
+            </ul>
+            <a href="#" class="read-more">Read More <i class="bi bi-long-arrow-right"></i></a>
+
+          </div>
+        </div>
+
+      </div>
+      <div id="active-customers"></div>
+
+    </section><!--End About Section -->
+
+<section id="faq" class="faq">
+    <div class="container" data-aos="fade-up">
+
+      <div class="section-title" color="black">
+          </div>
+
+      <div class="faq-list">
+        <ul>
+{% for faq in faqs %}
+    <li data-aos="fade-up" data-aos-delay="100">
+      <i class="bx bx-help-circle icon-help"></i>
+      <a data-bs-toggle="collapse" class="collapsed" data-bs-target="#faq-list-{{ loop.index }}">
+        {{ faq.question }} <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i>
+      </a>
+      <div id="faq-list-{{ loop.index }}" class="collapse" data-bs-parent=".faq-list">
+        <p>
+          {{ faq.answer }}
+        </p>
+      </div>
+    </li>
+{% endfor %}
+          
+
+</ul>
+</div>
+
+</div>
+</section><!-- End Frequently Asked Questions Section -->
+
+{% endblock %}
