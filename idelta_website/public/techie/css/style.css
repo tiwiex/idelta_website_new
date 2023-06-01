@@ -85,7 +85,7 @@ body {
     position: fixed;
     top: calc(50% - 30px);
     left: calc(50% - 30px);
-    border: 6px solid #5846f9;
+    border: 6px solid #AA1D22;
     border-top-color: #e7e4fe;
     border-radius: 50%;
     width: 60px;
@@ -435,7 +435,7 @@ body {
   
   #hero .container,
   #hero .container-fluid {
-    padding-top: 84px;
+    padding-top: 20px;
   }
   
   #hero h1 {
