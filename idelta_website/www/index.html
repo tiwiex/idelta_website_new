@@ -456,6 +456,10 @@ The company keeps expanding with a recent focus on providing IP TV to the homes 
         <div class="faq-list">
           <ul>
           {{type_faqs }}
+          {% set faqss = frappe.get_all("Frequently Asked Questions", fields=["question", "answer"], ignore_permissions=True) %}
+          {% set faqs_count = frappe.db.count("Frequently Asked Questions") %}
+
+          {# faqs_count #}
           {% set limit = 5 %}
           {% for faq in faqs %}
             {% if loop.index <= limit %}
@@ -470,14 +474,17 @@ The company keeps expanding with a recent focus on providing IP TV to the homes 
                   </p>
                 </div>
               </li>
+          </ul>
             {% endif %}
           {% endfor %}
+
+          {%if faqs_count > 3 %}
                 <nav id="navbar" class="navbar">
           <a class="getstarted" href="faqs"></a>
-          <a href="faqs" class="btn-buy btn-gold getstarted">Read More</a>
+          <a href="faqs" class="btn-buy btn-gold getstarted">See All</a>
+          {% endif %}
           
 
-          </ul>
         </div>
 
       </div>
