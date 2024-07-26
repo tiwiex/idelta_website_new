@@ -18,6 +18,27 @@ app_license = "MIT"
 app_include_css = "/assets/idelta_website/css/idelta_website.css"
 app_include_js = "/assets/idelta_website/js/idelta_website.js"
 
+from idelta_website.user import CustomUser
+
+print("in Tiwiex hooks")
+
+# hooks.py
+
+# Import your script
+#from idelta_website.purchase_invoice_creation import on_submit as purchase_invoice_on_submit
+
+# Define hooks
+
+doc_events = {
+    "Sales Invoice": {
+        "on_submit": "idelta_website.idelta_website.purchase_invoice_creation.on_submit"
+    }
+}
+#doc_events = {
+#    "User": {
+#        "on_update": "idelta_website.user.CustomUser.on_update"
+#    }
+#}
 
 website_routes = [
     "routes.routes"
