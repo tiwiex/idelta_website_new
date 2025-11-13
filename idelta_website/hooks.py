@@ -41,7 +41,7 @@ doc_events = {
 #}
 
 website_routes = [
-    "routes.routes"
+    #"routes.routes"
 ]
 
 # include js, css files in header of web template
