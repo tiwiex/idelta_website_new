@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIPMS Proposal - Inspired Delta Ltd</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --ink: #163041;
+            --ink-soft: #345468;
+            --accent: #2b6c8f;
+            --accent-soft: #dcebf4;
+            --surface: #f7fbfe;
+            --border: #c9dce8;
+            --success: #1f6b45;
+            --warn: #7b5a12;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #fff;
+            padding: 0.45in 0.35in;
+            max-width: 1200px;
+            margin: 0 auto;
+            color: var(--ink);
+            line-height: 1.45;
+        }
+
+        @media print {
+            body {
+                padding: 0.25in;
+            }
+
+            .page-break {
+                page-break-before: always;
+            }
+
+            .no-break,
+            table,
+            .card {
+                page-break-inside: avoid;
+            }
+
+            h1,
+            h2,
+            h3,
+            h4 {
+                page-break-after: avoid;
+            }
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--ink);
+            letter-spacing: -0.02em;
+            margin-bottom: 0.3rem;
+            border-left: 6px solid var(--accent);
+            padding-left: 1rem;
+        }
+
+        h2 {
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: var(--ink-soft);
+            margin: 1.4rem 0 0.9rem;
+            padding-bottom: 0.25rem;
+            border-bottom: 2px solid var(--accent-soft);
+        }
+
+        h3 {
+            font-size: 1.08rem;
+            font-weight: 700;
+            color: var(--ink-soft);
+            margin: 1.1rem 0 0.7rem;
+        }
+
+        h4 {
+            font-size: 0.98rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin: 0.9rem 0 0.45rem;
+        }
+
+        p {
+            margin-bottom: 0.7rem;
+        }
+
+        ul,
+        ol {
+            padding-left: 1.35rem;
+            margin: 0.45rem 0 0.75rem;
+        }
+
+        li {
+            margin-bottom: 0.28rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0.8rem 0 1.2rem;
+            font-size: 0.84rem;
+        }
+
+        th {
+            background: #e7f2f8;
+            color: var(--ink);
+            font-weight: 700;
+            text-align: left;
+            padding: 0.62rem 0.75rem;
+            border: 1px solid var(--border);
+        }
+
+        td {
+            padding: 0.58rem 0.75rem;
+            border: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        tr:nth-child(even) {
+            background: #fbfdff;
+        }
+
+        .header-sub,
+        .footer-note {
+            color: var(--ink-soft);
+            font-size: 0.93rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 0.5rem 1rem;
+            background: #eff7fc;
+            padding: 0.9rem 1.2rem;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+        }
+
+        .footer-note {
+            margin-top: 1.5rem;
+            font-size: 0.78rem;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1rem 1.1rem;
+            margin-bottom: 0.95rem;
+        }
+
+        .card-header {
+            font-weight: 700;
+            font-size: 0.98rem;
+            color: var(--ink);
+            margin-bottom: 0.45rem;
+        }
+
+        .toc {
+            background: #f3f9fd;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1rem 1.1rem;
+            margin: 1rem 0 1.2rem;
+        }
+
+        .toc ol {
+            margin: 0.35rem 0 0;
+        }
+
+        .toc a {
+            color: var(--ink);
+            text-decoration: none;
+        }
+
+        .toc a:hover {
+            text-decoration: underline;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 0.8rem;
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 0.18rem 0.72rem;
+            border-radius: 999px;
+            background: var(--accent);
+            color: #fff;
+            font-size: 0.72rem;
+            font-weight: 700;
+        }
+
+        .status-yes {
+            color: var(--success);
+            font-weight: 700;
+        }
+
+        .status-note {
+            color: var(--warn);
+            font-weight: 700;
+        }
+
+        .mt-1 {
+            margin-top: 0.6rem;
+        }
+
+        .mt-2 {
+            margin-top: 1rem;
+        }
+
+        .text-small {
+            font-size: 0.8rem;
+        }
+
+        .muted {
+            color: #587286;
+        }
+
+        .text-right {
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .timeline-bar {
+            display: flex;
+            height: 2rem;
+            margin: 0.9rem 0 0.25rem;
+            border-radius: 999px;
+            overflow: hidden;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #fff;
+            text-align: center;
+        }
+
+        .tl-p0 { background: #1b4357; width: 12.5%; }
+        .tl-p1 { background: #2b6c8f; width: 12.5%; }
+        .tl-p2 { background: #4188aa; width: 25%; }
+        .tl-uat { background: #69a8c4; width: 12.5%; }
+        .tl-p3 { background: #86bed8; width: 12.5%; color: var(--ink); }
+        .tl-hc { background: #b6d9ea; width: 25%; color: var(--ink); }
+
+        .timeline-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.72rem;
+            color: var(--ink-soft);
+        }
+    </style>
+</head>
+<body>
+
+<h1>AIPMS Proposal - Addressing Infrastructure Programme Management System</h1>
+<div class="header-sub">
+    <span><strong>RFP Reference:</strong> AIPMS-RFP-001 v2.0</span>
+    <span><strong>Issue Date:</strong> 10 March 2026</span>
+    <span><strong>Submitted to:</strong> Inspired Global Systems Ltd (IGSL)</span>
+    <span><strong>Submitted by:</strong> Inspired Delta Ltd</span>
+</div>
+
+<div class="toc">
+    <div class="card-header">Table of Contents</div>
+    <ol>
+        <li><a href="#section-a">Section A: Executive Summary</a></li>
+        <li><a href="#section-b">Section B: Respondent Profile & Credentials</a></li>
+        <li><a href="#section-c">Section C: Technical Approach</a></li>
+        <li><a href="#section-d">Section D: Project Plan & Delivery Timeline</a></li>
+        <li><a href="#section-e">Section E: Commercial Proposal</a></li>
+        <li><a href="#section-f">Section F: Compliance Declarations</a></li>
+        <li><a href="#submission-checklist">Submission Checklist for Final PDF</a></li>
+    </ol>
+</div>
+
+<h2 id="section-a">Section A: Executive Summary</h2>
+<div class="card no-break">
+    <p>Inspired Delta Ltd submits this proposal for the supply, configuration, hosting, and support of the Addressing Infrastructure Programme Management System (AIPMS). Our recommended delivery model is a hybrid implementation built on ERPNext and the Frappe Framework, with targeted custom modules for the AIPMS Configuration Panel, Field Data Tool (FDT) integration, programme-specific workflows, and reporting requirements.</p>
+
+    <p>The solution is designed to meet the RFP objective of delivering a rapid, operational programme platform without taking on the cost and schedule risk of a full bespoke build. We will use proven ERPNext capabilities for contracts, HR, payroll, document management, workflow, dashboards, and auditability, then extend them where the RFP requires programme-specific controls such as selective vendor workflows, payment certification logic, field-level HR restrictions, and FDT import validation.</p>
+
+    <div class="grid-3 mt-1">
+        <div class="card" style="margin-bottom:0;">
+            <span class="pill">Rapid Delivery</span>
+            <p class="text-small mt-1">Lite Version for Modules 1-5 by end of Week 2, ahead of the Week 3 hard deadline.</p>
+        </div>
+        <div class="card" style="margin-bottom:0;">
+            <span class="pill">Open Platform</span>
+            <p class="text-small mt-1">ERPNext/Frappe foundation with open exports, transparent configuration, and continuity beyond a single vendor.</p>
+        </div>
+        <div class="card" style="margin-bottom:0;">
+            <span class="pill">Programme Control</span>
+            <p class="text-small mt-1">Configuration-driven financial parameters, RBAC, audit trail, document control, and payment workflow governance.</p>
+        </div>
+    </div>
+
+    <p class="mt-2"><strong>Proposal statements required by the RFP:</strong></p>
+    <ul>
+        <li>Inspired Delta Ltd confirms that it has reviewed the AIPMS RFP in full and will complete the detailed Annex A compliance matrix as part of the final submission package.</li>
+        <li>Inspired Delta Ltd accepts the delivery timetable in Section 6 of the RFP, including the Week 3 Lite Version hard deadline and the Week 10 Full Go-Live hard deadline.</li>
+        <li>Inspired Delta Ltd commits to an accelerated delivery target of <strong>Lite Version by end of Week 2</strong> and <strong>Full Go-Live by end of Week 8</strong>, subject to timely availability of programme parameters, approvers, and FDT sample data during mobilisation.</li>
+    </ul>
+</div>
+
+<h2 id="section-b">Section B: Respondent Profile & Credentials</h2>
+<div class="grid-2">
+    <div class="card">
+        <div class="card-header">Company Details</div>
+        <table style="margin:0;">
+            <tr><td style="width:38%;"><strong>Company Name</strong></td><td>Inspired Delta Ltd</td></tr>
+            <tr><td><strong>Primary Email</strong></td><td>info@ideltatech.com</td></tr>
+            <tr><td><strong>Website</strong></td><td>ideltatech.com</td></tr>
+            <tr><td><strong>Registered Address</strong></td><td>[Insert registered office address before final submission]</td></tr>
+            <tr><td><strong>Registration No.</strong></td><td>[Insert CAC registration number before final submission]</td></tr>
+            <tr><td><strong>Primary Contact</strong></td><td>[Insert bid contact name, title, phone, and email]</td></tr>
+        </table>
+    </div>
+    <div class="card">
+        <div class="card-header">Respondent Profile</div>
+        <p>Inspired Delta Ltd delivers digital platforms, workflow automation, ERP implementations, and custom business systems using the Frappe/ERPNext stack. Our delivery approach combines configuration-led deployment with focused custom engineering where governance, reporting, integration, or data-control requirements demand it.</p>
+        <p>For AIPMS, we will deploy a delivery team spanning project management, solution architecture, Frappe development, QA, hosting, and HR/payroll configuration. This approach aligns directly with the RFP emphasis on rapid mobilisation, operational controls, data protection, and a 12-month support model post go-live.</p>
+    </div>
+</div>
+
+<h3>Relevant Project Credentials</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Reference Project</th>
+            <th>Comparable Scope</th>
+            <th>Relevance to AIPMS</th>
+            <th>Submission Note</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Ingentia Energies</td>
+            <td>Programme controls, workflow approvals, reporting, and operational administration</td>
+            <td>Relevant for approval workflows, operational visibility, and programme-level reporting</td>
+            <td>Insert contract value, go-live date, and verification contact in final PDF appendix</td>
+        </tr>
+        <tr>
+            <td>One School Initiative</td>
+            <td>HR/payroll automation, staff data handling, attendance, and reporting</td>
+            <td>Relevant for AIPMS Module 7 payroll, onboarding, statutory deductions, and HR reporting</td>
+            <td>Insert contract value, go-live date, and verification contact in final PDF appendix</td>
+        </tr>
+        <tr>
+            <td>Infrastructure ERP deployment</td>
+            <td>Contract administration, procurement controls, document handling, and finance integration</td>
+            <td>Relevant for Modules 2, 3, and 4 controls and commercial governance</td>
+            <td>Replace with named client reference and full verification details before submission</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="grid-2">
+    <div class="card">
+        <div class="card-header">Local Delivery Capacity</div>
+        <p>Inspired Delta Ltd will deliver AIPMS with a Nigeria-based implementation team, enabling rapid mobilisation, direct stakeholder engagement during Weeks 1-3, and local support during hypercare and Year 1 support retainer.</p>
+    </div>
+    <div class="card">
+        <div class="card-header">Data Protection Capability</div>
+        <p>The solution will be delivered under a controller-processor model with data access restricted by role and field, audit logging enabled, and HR/payroll records protected by explicit privilege boundaries. The final submission will include the applicable data protection statement and DPA commitment for the deployment jurisdiction.</p>
+    </div>
+</div>
+
+<h2 id="section-c">Section C: Technical Approach</h2>
+<div class="card">
+    <div class="card-header">Proposed Delivery Model</div>
+    <p>Inspired Delta Ltd proposes a hybrid AIPMS implementation: ERPNext provides the base platform for projects, workflows, documents, procurement, HR, payroll, and reporting; custom Frappe components provide the AIPMS-specific Configuration Panel, payment certification workflows, FDT ingestion, additional dashboards, and field-level governance controls. This is the fastest route to operational readiness while preserving flexibility for future programme changes.</p>
+</div>
+
+<h3>Configuration Panel Design</h3>
+<div class="card">
+    <p>The AIPMS Configuration Panel will be implemented as administrator-controlled DocTypes and forms within Frappe. Tier 1 users will be able to maintain contract values, cost lines, working capital advance settings, unit payment rates, zone targets, milestone percentages, retention rules, organisational roles, escalation thresholds, and report parameters without direct code edits. Changes will be permission-controlled and audit-logged.</p>
+</div>
+
+<h3>Compliance Summary by Module</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Module</th>
+            <th>Mandatory / High-Priority Coverage</th>
+            <th>Delivery Method</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1. Milestone & Programme Schedule</td>
+            <td>Configurable milestones, sign-off workflow, progress tracking, alerts, and live reporting</td>
+            <td>ERPNext Projects/Tasks plus approval workflow, programme dashboards, and custom milestone reports</td>
+            <td class="status-yes">Covered in scope</td>
+        </tr>
+        <tr>
+            <td>2. Contract & Vendor Management</td>
+            <td>Contract register, SVR workflow, tender control, vendor performance, escalation routing, variation control</td>
+            <td>ERPNext contracts/procurement with custom SVR, approval routing, escalation register, and variation workflow</td>
+            <td class="status-yes">Covered in scope</td>
+        </tr>
+        <tr>
+            <td>3. Payment Certification & Drawdown</td>
+            <td>WCA records, drawdown claims, certificate generation, retention logic, reconciliation, FDT-driven payment checks</td>
+            <td>Custom AIPMS payment DocTypes, print formats, workflow approvals, and FDT-linked validation logic</td>
+            <td class="status-yes">Covered in scope</td>
+        </tr>
+        <tr>
+            <td>4. Document Management & Audit Trail</td>
+            <td>Versioning, mandatory attachments, immutable approved records, export logging, user action audit trail</td>
+            <td>ERPNext document model plus custom attachment gates, restricted delete controls, and approval-state locking</td>
+            <td class="status-yes">Covered in scope</td>
+        </tr>
+        <tr>
+            <td>5. Governance & Meeting Management</td>
+            <td>Meeting calendar, agendas, minutes, quorum rules, extraordinary session flow, decision records, sign-off triggers</td>
+            <td>Custom meeting workflows and agenda/minute records linked to milestones, approvals, and action owners</td>
+            <td class="status-yes">Covered in scope</td>
+        </tr>
+        <tr>
+            <td>6. Reporting & Dashboards</td>
+            <td>Governance dashboard, PMO dashboard, financial reports, FDT import log, PDF/Excel/CSV exports</td>
+            <td>ERPNext reports/dashboards plus programme-specific print formats and export-ready report views</td>
+            <td class="status-yes">Covered in scope</td>
+        </tr>
+        <tr>
+            <td>7. Human Resource Management</td>
+            <td>Staff records, attendance, deployment, payroll, statutory deductions, training records, CSV onboarding, HR reports</td>
+            <td>ERPNext HR/Payroll plus custom remuneration rules, field deployment logic, and restricted HR financial fields</td>
+            <td class="status-yes">Covered in scope</td>
+        </tr>
+    </tbody>
+</table>
+
+<p class="text-small muted">Note: The final submission package should include the detailed Annex A line-by-line compliance matrix against AIPMS-FRS-001 v2.0, including treatment of all Mandatory, High, and Desirable requirements.</p>
+
+<h3>Detailed Module Delivery Notes</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Module</th>
+            <th>Detailed Implementation Approach</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Module 1: Milestone & Programme Schedule</td>
+            <td>Programme schedules will be configured through ERPNext Projects, Tasks, Task Types, and Project Templates, with milestone sign-off workflows, real-time progress views, deadline alerts, and milestone status reports generated from live transactional data.</td>
+        </tr>
+        <tr>
+            <td>Module 2: Contract & Vendor Management</td>
+            <td>Contracts will be managed through a structured digital register covering parties, value, dates, amendments, and workflow status. The Selective Vendor Register will be implemented with controlled nomination-to-approval routing, categorisation, escalation handling, and variation-control approval paths.</td>
+        </tr>
+        <tr>
+            <td>Module 3: Payment Certification & Drawdown</td>
+            <td>Custom payment DocTypes will manage working capital advances, drawdown claims, milestone-linked payment logic, payment certificate generation, retention calculations, and reconciliation reporting. FDT imports will be linked to payment validation and discrepancy-hold workflows.</td>
+        </tr>
+        <tr>
+            <td>Module 4: Document Management & Audit Trail</td>
+            <td>Documents will be attached to programme records with version tracking, mandatory-attachment gates for payment and approval steps, approval-state locking to prevent unauthorised edits, and audit visibility over document actions and record changes.</td>
+        </tr>
+        <tr>
+            <td>Module 5: Governance & Meeting Management</td>
+            <td>Meeting records will cover agenda, attendees, minutes, decisions, quorum rules, extraordinary sessions, and follow-up actions. Governance approvals and milestone sign-offs will be linked to downstream payment and reporting processes.</td>
+        </tr>
+        <tr>
+            <td>Module 6: Reporting & Dashboards</td>
+            <td>Dashboards will provide governance, PMO, financial, HR, escalation, and FDT import visibility. Reports will include commitment and variance reporting, workstream progress, payment summaries, import logs, and export-ready outputs in open formats.</td>
+        </tr>
+        <tr>
+            <td>Module 7: Human Resource Management</td>
+            <td>ERPNext HR/Payroll will be configured for employee files, contracts, attendance, deployment, payroll calculation, statutory deductions, training records, and bulk CSV onboarding. Additional controls will handle deployment-linked remuneration and restricted access to salary and bank data.</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>Technical Requirements Mapping</h3>
+<div class="grid-2">
+    <div class="card">
+        <div class="card-header">Hosting & Infrastructure</div>
+        <ul class="text-small">
+            <li>Cloud-hosted production environment with declared data residency in the final hosting schedule.</li>
+            <li>99.5% monthly uptime SLA minimum, excluding agreed maintenance windows.</li>
+            <li>Daily backups with point-in-time recovery design targeting RPO of 1 hour and RTO of 4 hours.</li>
+            <li>Architecture sized for at least 50 concurrent users, with scaling options during peak milestone periods.</li>
+        </ul>
+    </div>
+    <div class="card">
+        <div class="card-header">Security & Access Control</div>
+        <ul class="text-small">
+            <li>TLS in transit and encrypted storage for production data and protected backups.</li>
+            <li>2FA enforced for Tier 1-4 users and configurable for other tiers.</li>
+            <li>RBAC at module, record, and field level, especially for HR/payroll data.</li>
+            <li>Audit logging for create, update, approval, export, and privileged access events.</li>
+            <li>Pre-go-live penetration testing with remediation of critical findings before production sign-off.</li>
+        </ul>
+    </div>
+</div>
+
+<div class="grid-2">
+    <div class="card">
+        <div class="card-header">FDT Integration Module</div>
+        <ul class="text-small">
+            <li>Phase 1 CSV import with schema validation, duplicate detection, field-level error reporting, and immutable batch logs.</li>
+            <li>Imported FDT records retained as source records; payment discrepancies flagged for manual review rather than overwritten.</li>
+            <li>Phase 2 API option can be provided as an optional enhancement, subject to the final FDT interface specification.</li>
+        </ul>
+    </div>
+    <div class="card">
+        <div class="card-header">Offline & Mobile</div>
+        <ul class="text-small">
+            <li>Web access across current desktop and mobile browsers.</li>
+            <li>Offline-first attendance and deployment capture for designated HR field forms, with background sync after reconnection.</li>
+            <li>Scope includes configuration, testing, and user training for low-connectivity operating conditions.</li>
+        </ul>
+    </div>
+</div>
+
+<h3>Architecture, HR, and Data Control Notes</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Area</th>
+            <th>Approach</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>System Architecture</td>
+            <td>Multi-tier Frappe/ERPNext application stack with segregated application, database, and backup controls. Final infrastructure diagram to be attached in the technical appendix.</td>
+        </tr>
+        <tr>
+            <td>HR Payroll Engine</td>
+            <td>Payroll configured for fixed and variable earnings, statutory deductions, deployment-linked remuneration, training records, and controlled access to salary/bank fields.</td>
+        </tr>
+        <tr>
+            <td>Exports & Exit</td>
+            <td>Programme data export capability in open formats, with transition support defined in the support and exit provisions. Platform continuity will be documented in the final commercial and legal schedules.</td>
+        </tr>
+        <tr>
+            <td>Audit Rights</td>
+            <td>Read-only review and audit access can be provided for authorised oversight roles, supported by immutable logs and report exports.</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>Configuration Panel and No-Code Administration</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Parameter Type</th>
+            <th>Administration Method</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Contract values and cost lines</td>
+            <td>Maintained through administrator-managed DocTypes and custom fields so programme-specific commercial parameters can be updated without code changes.</td>
+        </tr>
+        <tr>
+            <td>Zone targets and unit payment rates</td>
+            <td>Configured in dedicated parameter records with permission-controlled forms and audit logging.</td>
+        </tr>
+        <tr>
+            <td>Milestone structures and tranche percentages</td>
+            <td>Managed through project templates, milestone definitions, and configuration records for approval and payment logic.</td>
+        </tr>
+        <tr>
+            <td>Organisational role names and approval tiers</td>
+            <td>Mapped through role configuration, workflow definitions, and RBAC rules maintained by Tier 1 administrators.</td>
+        </tr>
+        <tr>
+            <td>Workflow stages and notification rules</td>
+            <td>Configured through Frappe workflow and alert configuration tools rather than source-code edits.</td>
+        </tr>
+        <tr>
+            <td>Report definitions and operational views</td>
+            <td>Managed through report builder, print format, and dashboard configuration, with deeper changes handled only where custom logic is required.</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2 id="section-d" class="page-break">Section D: Project Plan & Delivery Timeline</h2>
+<div class="card">
+    <p><strong>Committed delivery profile:</strong> Lite Version by end of Week 2, Full Configuration complete by end of Week 6, UAT and hardening in Week 7, Full Go-Live by end of Week 8, followed by four weeks of hypercare and structured handover through Week 16.</p>
+    <div class="timeline-bar">
+        <div class="tl-p0" style="line-height:2rem;">W1</div>
+        <div class="tl-p1" style="line-height:2rem;">W2</div>
+        <div class="tl-p2" style="line-height:2rem;">W3-4</div>
+        <div class="tl-uat" style="line-height:2rem;">W5-6</div>
+        <div class="tl-p3" style="line-height:2rem;">W7-8</div>
+        <div class="tl-hc" style="line-height:2rem;">W9-16</div>
+    </div>
+    <div class="timeline-label">
+        <span>P0</span><span>P1</span><span>P2 Build</span><span>Config/UAT</span><span>Go-Live</span><span>Hypercare + Handover</span>
+    </div>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Week</th>
+            <th>Phase</th>
+            <th>Activities</th>
+            <th>Deliverables / Acceptance Gate</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="text-right">Week 1</td>
+            <td>P0 Mobilisation</td>
+            <td>Kick-off, confirmation of stakeholders, environment setup, parameter workshops, user/role setup, draft backlog confirmation</td>
+            <td>Hosting active, user access tested, configuration plan approved</td>
+        </tr>
+        <tr>
+            <td class="text-right">Week 2</td>
+            <td>P1 Lite Version</td>
+            <td>Core delivery of Modules 1-5, initial RBAC, key document templates, meeting workflow, contract register activation, WCA setup, and baseline payment workflow configuration</td>
+            <td>Lite Version accepted for programme commencement</td>
+        </tr>
+        <tr>
+            <td class="text-right">Weeks 3-4</td>
+            <td>P2 Build Sprint 1</td>
+            <td>Module 6 dashboard build, Module 7 HR/payroll configuration, statutory deduction setup, FDT CSV import development, salary structure templates, and bulk onboarding tools</td>
+            <td>Configured Modules 3, 6, and 7 ready for integrated review</td>
+        </tr>
+        <tr>
+            <td class="text-right">Weeks 5-6</td>
+            <td>P2 Build Sprint 2</td>
+            <td>End-to-end FDT testing, payment certificate linkage, offline attendance testing, payroll parallel runs, refined exports, security hardening, training materials, and test-script completion</td>
+            <td>Full configuration completed and ready for UAT sign-off</td>
+        </tr>
+        <tr>
+            <td class="text-right">Week 7</td>
+            <td>UAT & Security</td>
+            <td>UAT defect resolution, penetration testing, remediation of critical findings, final training material packaging, and go-live readiness review</td>
+            <td>UAT sign-off, critical findings resolved, go-live approved</td>
+        </tr>
+        <tr>
+            <td class="text-right">Week 8</td>
+            <td>P3 Full Go-Live</td>
+            <td>Production cutover, first live FDT import, first payroll cycle validation, Tier 1-7 training completion, and operational transition to live service</td>
+            <td>All seven modules live in production</td>
+        </tr>
+        <tr>
+            <td class="text-right">Weeks 9-12</td>
+            <td>Hypercare</td>
+            <td>Named support lead, rapid issue response, production tuning, reporting refinements, usage support</td>
+            <td>Hypercare SLA active with weekly issue review</td>
+        </tr>
+        <tr>
+            <td class="text-right">Weeks 13-16</td>
+            <td>P4 Handover</td>
+            <td>Final documentation, admin knowledge transfer, support transition, enhancement backlog definition, service reporting cadence</td>
+            <td>P4 handover complete and Year 1 support retainer active</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>Phase-by-Phase Delivery Detail</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Phase</th>
+            <th>Detailed Scope</th>
+            <th>Acceptance Signal</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>P0 Mobilisation</td>
+            <td>Contract execution, kick-off, hosting provisioning, parameter loading into the Configuration Panel, user creation, and P1 configuration plan submission.</td>
+            <td>Hosting active, parameters confirmed, user access tested.</td>
+        </tr>
+        <tr>
+            <td>P1 Lite Version</td>
+            <td>Modules 1-5 operational at core level: milestone scheduling, contract register, SVR workflow, WCA and claim workflow, document repository, meeting calendar, minutes, and baseline RBAC.</td>
+            <td>Written Lite Version sign-off by end of Week 2.</td>
+        </tr>
+        <tr>
+            <td>P2 Full Configuration</td>
+            <td>Dashboards and reports, HR/payroll engine, statutory deduction setup, bulk onboarding, FDT CSV import, integration testing, and structured UAT support.</td>
+            <td>Configured system ready for full UAT and operational review.</td>
+        </tr>
+        <tr>
+            <td>P3 Full Go-Live</td>
+            <td>Production go-live, live FDT processing, first payroll run, training completion, and start of hypercare support.</td>
+            <td>Production acceptance by end of Week 8.</td>
+        </tr>
+        <tr>
+            <td>P4 Handover</td>
+            <td>Technical documentation, user documentation, knowledge transfer, closure reporting, and transition into support retainer operations.</td>
+            <td>Final handover accepted and support cadence active.</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>Team Structure</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Role</th>
+            <th>Assigned Lead</th>
+            <th>Proposal Note</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>Project Manager</td><td>Taiwo Eugene Akinosho</td><td>Overall delivery governance, mobilisation, stakeholder coordination</td></tr>
+        <tr><td>Lead Solutions Architect</td><td>Lucky Okpuno</td><td>Solution design, module fit, platform architecture, commercial scoping</td></tr>
+        <tr><td>Lead Developer</td><td>TK Emiko</td><td>Custom Frappe app development, workflow, integration, and reporting components</td></tr>
+        <tr><td>QA Lead</td><td>Rose Soyinka</td><td>Test planning, UAT coordination, acceptance readiness</td></tr>
+        <tr><td>HR & Payroll Specialist</td><td>[Insert name before final submission]</td><td>Payroll rules, statutory deductions, HR controls, training</td></tr>
+        <tr><td>DevOps / Hosting Lead</td><td>[Insert name before final submission]</td><td>Infrastructure, backup, monitoring, deployment hardening</td></tr>
+    </tbody>
+</table>
+
+<p class="text-small muted">Appendix required before submission: CVs for all named key personnel and any delivery partner resources.</p>
+
+<h3>Top Delivery Risks and Mitigations</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Risk</th>
+            <th>Impact</th>
+            <th>Mitigation</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Delay in receiving approved programme parameters or user lists</td>
+            <td>Mobilisation slippage and delayed Lite acceptance</td>
+            <td>Run a structured Week 1 data workshop, use signed parameter templates, and escalate missing decisions within 24 hours</td>
+        </tr>
+        <tr>
+            <td>Late or unstable FDT schema/sample data</td>
+            <td>Delay to payment automation and end-to-end validation</td>
+            <td>Build using a versioned import schema, validate against sample batches early, and isolate discrepancies in import logs</td>
+        </tr>
+        <tr>
+            <td>Complex payroll edge cases discovered during configuration</td>
+            <td>Errors in remuneration or statutory deductions</td>
+            <td>Conduct parallel payroll testing before go-live and secure HR sign-off on rule configuration before production use</td>
+        </tr>
+        <tr>
+            <td>Stakeholder availability for UAT and approval workflows</td>
+            <td>Acceptance delay despite technical readiness</td>
+            <td>Publish UAT calendar in Week 2, assign named approvers, and track unresolved issues daily during Week 7</td>
+        </tr>
+        <tr>
+            <td>Security or performance issue in custom components</td>
+            <td>Go-live risk or remediation effort</td>
+            <td>Use peer review, staged deployment, pre-go-live testing, and penetration testing before production sign-off</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2 id="section-e" class="page-break">Section E: Commercial Proposal</h2>
+<div class="card">
+    <p>All prices below are planning estimates stated in Nigerian Naira (&#8358;) using a working conversion rate of <strong>&#8358;1,400 per US$1</strong>. VAT treatment should be confirmed in the final commercial submission. These figures are suitable for internal budgeting and draft submission shaping, but should be approved commercially before issue.</p>
+</div>
+
+<h3>Fixed-Price Delivery Breakdown</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Phase / Scope</th>
+            <th>Description</th>
+            <th>Price (&#8358;)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>P0 Mobilisation</td><td>Hosting setup, parameter workshops, role setup, configuration planning</td><td class="text-right">&#8358;8,400,000</td></tr>
+        <tr><td>P1 Lite Version</td><td>Modules 1-5 core functionality, workflows, templates, and initial training</td><td class="text-right">&#8358;25,200,000</td></tr>
+        <tr><td>P2 Full Configuration</td><td>Modules 3, 6, and 7 completion, FDT CSV integration, dashboards, HR/payroll, exports</td><td class="text-right">&#8358;33,600,000</td></tr>
+        <tr><td>P3 Full Go-Live</td><td>UAT support, go-live execution, training completion, production cutover support</td><td class="text-right">&#8358;12,600,000</td></tr>
+        <tr><td>P4 Handover</td><td>Documentation, knowledge transfer, final acceptance support</td><td class="text-right">&#8358;4,200,000</td></tr>
+        <tr style="font-weight:700; background:#e7f2f8;"><td colspan="2">Total Fixed Delivery Fee</td><td class="text-right">&#8358;84,000,000</td></tr>
+    </tbody>
+</table>
+
+<h3>Hosting, Support, and 3-Year Cost Structure</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Item</th>
+            <th>Description</th>
+            <th>Monthly Fee (&#8358;)</th>
+            <th>Annual Fee (&#8358;)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>Hosting</td><td>Production hosting, backups, monitoring, and maintenance window management</td><td class="text-right">&#8358;1,400,000</td><td class="text-right">&#8358;16,800,000</td></tr>
+        <tr><td>Year 1 Support Retainer</td><td>Bug fixes, security patches, SLA support, and agreed monthly enhancement hours</td><td class="text-right">&#8358;3,500,000</td><td class="text-right">&#8358;42,000,000</td></tr>
+        <tr><td>Year 2 Support Option</td><td>Indicative renewal pricing</td><td class="text-right">&#8358;3,150,000</td><td class="text-right">&#8358;37,800,000</td></tr>
+        <tr><td>Year 3 Support Option</td><td>Indicative renewal pricing</td><td class="text-right">&#8358;2,940,000</td><td class="text-right">&#8358;35,280,000</td></tr>
+    </tbody>
+</table>
+
+<h3>Training and Optional Enhancements</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Item</th>
+            <th>Description</th>
+            <th>Price (&#8358;)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>Training</td><td>Tier 1-7 training programme, user guides, and recorded walkthroughs</td><td>Included in fixed delivery fee</td></tr>
+        <tr><td>Phase 2 API Integration</td><td>Scheduled/API-based FDT integration beyond mandatory CSV import</td><td class="text-right">&#8358;11,200,000</td></tr>
+        <tr><td>Mobile HR Check-In</td><td>Enhanced field check-in workflow with device/location controls</td><td class="text-right">&#8358;8,400,000</td></tr>
+        <tr><td>Advanced Gantt / Portfolio View</td><td>Enhanced programme schedule visualisation</td><td class="text-right">&#8358;5,600,000</td></tr>
+    </tbody>
+</table>
+
+<p><strong>Total 3-Year Cost of Ownership:</strong> &#8358;215,880,000</p>
+<p><strong>Price validity:</strong> Minimum 90 days from proposal submission date.</p>
+
+<h3>Proposed Payment Terms</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Milestone</th>
+            <th>Trigger</th>
+            <th>% of Delivery Fee</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>P0 Mobilisation</td><td>Contract execution and mobilisation completion</td><td class="text-right">10%</td></tr>
+        <tr><td>P1 Lite Version Acceptance</td><td>Written sign-off for Modules 1-5 core readiness</td><td class="text-right">25%</td></tr>
+        <tr><td>P2 Full Configuration Acceptance</td><td>Configured Modules 6 and 7, FDT integration, and UAT readiness</td><td class="text-right">35%</td></tr>
+        <tr><td>P3 Full Go-Live</td><td>Production go-live and completion of operational readiness activities</td><td class="text-right">20%</td></tr>
+        <tr><td>P4 Final Handover</td><td>Documentation, handover, and close-out acceptance</td><td class="text-right">10%</td></tr>
+    </tbody>
+</table>
+
+<h2 id="section-f">Section F: Compliance Declarations</h2>
+<div class="card">
+    <ul style="list-style-type:none; padding-left:0;">
+        <li style="margin-bottom:0.7rem;"><strong>Conflict of Interest:</strong> Inspired Delta Ltd declares that, to the best of its knowledge, it has no conflict of interest with Inspired Global Systems Ltd or any party involved in the programme.</li>
+        <li style="margin-bottom:0.7rem;"><strong>Data Protection:</strong> Inspired Delta Ltd accepts the requirement to comply with applicable data protection legislation and to execute an appropriate Data Processing Agreement for personal and HR data.</li>
+        <li style="margin-bottom:0.7rem;"><strong>Data Ownership and Exit:</strong> Inspired Delta Ltd accepts the data ownership and exit provisions in Section 4.6 of the RFP. Final platform continuity and escrow/open-platform provisions will be documented in the final contract schedule according to the agreed delivery model.</li>
+        <li style="margin-bottom:0.7rem;"><strong>Service Levels:</strong> Inspired Delta Ltd accepts the minimum service level requirements in Section 5, including uptime, response targets, backup verification, and support-retainer expectations.</li>
+        <li style="margin-bottom:0.7rem;"><strong>Timeline Commitment:</strong> Inspired Delta Ltd confirms a Lite Version commitment date of end of Week 2 and a Full Go-Live commitment date of end of Week 8, both within the RFP maximum timetable.</li>
+        <li style="margin-bottom:0.7rem;"><strong>Exceptions:</strong> No exceptions are declared in this draft proposal. Any commercial, legal, or hosting-schedule clarifications should be disclosed explicitly in the final PDF submission if required.</li>
+    </ul>
+</div>
+
+<h2 id="submission-checklist">Submission Checklist for Final PDF</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Required Finalisation Item</th>
+            <th>Status in This Draft</th>
+            <th>Action Before Submission</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>Registered address, CAC number, bid contact</td><td class="status-note">Pending</td><td>Insert corporate details</td></tr>
+        <tr><td>Three complete client references with values, dates, and verification contacts</td><td class="status-note">Pending</td><td>Complete Section B appendix</td></tr>
+        <tr><td>Detailed Annex A compliance matrix</td><td class="status-note">Pending</td><td>Attach final line-by-line matrix</td></tr>
+        <tr><td>CVs for key personnel</td><td class="status-note">Pending</td><td>Attach appendix</td></tr>
+        <tr><td>Named HR specialist and DevOps lead</td><td class="status-note">Pending</td><td>Replace placeholders</td></tr>
+        <tr><td>Commercial figures and VAT statement</td><td class="status-note">Pending</td><td>Insert approved pricing</td></tr>
+        <tr><td>Declared hosting/data residency location</td><td class="status-note">Pending</td><td>Confirm final production hosting schedule</td></tr>
+    </tbody>
+</table>
+
+<div class="footer-note">
+    <span>AIPMS Proposal Draft</span>
+    <span>Inspired Delta Ltd</span>
+    <span>ERPNext / Frappe Delivery Model</span>
+    <span>Lite Version: Week 2 | Full Go-Live: Week 8</span>
+</div>
+
+</body>
+</html>

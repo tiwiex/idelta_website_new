@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FEVA Proposal - Inspired Delta Ltd</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --ink: #173142;
+            --ink-soft: #38576a;
+            --accent: #176087;
+            --accent-soft: #dbeaf3;
+            --surface: #f7fbfd;
+            --border: #cadbe6;
+            --success: #1f6c45;
+            --warn: #8a6112;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            color: var(--ink);
+            background: #fff;
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 0.45in 0.35in;
+            line-height: 1.45;
+        }
+
+        @media print {
+            body { padding: 0.25in; }
+            .page-break { page-break-before: always; }
+            .card, table, .no-break { page-break-inside: avoid; }
+            h1, h2, h3, h4 { page-break-after: avoid; }
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 0.3rem;
+            padding-left: 1rem;
+            border-left: 6px solid var(--accent);
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: 1.45rem;
+            margin: 1.35rem 0 0.85rem;
+            color: var(--ink-soft);
+            border-bottom: 2px solid var(--accent-soft);
+            padding-bottom: 0.25rem;
+        }
+
+        h3 {
+            font-size: 1.08rem;
+            margin: 1rem 0 0.65rem;
+            color: var(--ink-soft);
+        }
+
+        p {
+            margin-bottom: 0.7rem;
+        }
+
+        ul {
+            padding-left: 1.3rem;
+            margin: 0.45rem 0 0.8rem;
+        }
+
+        li {
+            margin-bottom: 0.3rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0.75rem 0 1.15rem;
+            font-size: 0.84rem;
+        }
+
+        th {
+            background: #e6f1f7;
+            text-align: left;
+            padding: 0.62rem 0.72rem;
+            border: 1px solid var(--border);
+        }
+
+        td {
+            padding: 0.58rem 0.72rem;
+            border: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        tr:nth-child(even) {
+            background: #fbfdff;
+        }
+
+        .header-sub,
+        .footer-note {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 0.5rem 1rem;
+            padding: 0.9rem 1.15rem;
+            background: #eff7fb;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            color: var(--ink-soft);
+        }
+
+        .footer-note {
+            margin-top: 1.5rem;
+            font-size: 0.78rem;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1rem 1.1rem;
+            margin-bottom: 0.95rem;
+        }
+
+        .card-header {
+            font-weight: 700;
+            font-size: 0.98rem;
+            color: var(--ink);
+            margin-bottom: 0.45rem;
+        }
+
+        .toc {
+            background: #f3f9fd;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1rem 1.1rem;
+            margin: 1rem 0 1.2rem;
+        }
+
+        .toc ol {
+            margin: 0.35rem 0 0;
+        }
+
+        .toc a {
+            color: var(--ink);
+            text-decoration: none;
+        }
+
+        .toc a:hover {
+            text-decoration: underline;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 0.8rem;
+        }
+
+        .pill {
+            display: inline-block;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 999px;
+            padding: 0.18rem 0.72rem;
+            font-size: 0.72rem;
+            font-weight: 700;
+        }
+
+        .muted {
+            color: #5a7485;
+            font-size: 0.8rem;
+        }
+
+        .status-yes {
+            color: var(--success);
+            font-weight: 700;
+        }
+
+        .status-note {
+            color: var(--warn);
+            font-weight: 700;
+        }
+
+        .text-right {
+            text-align: right;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+
+<h1>FEVA Proposal - Field Enumeration and Verification App</h1>
+<div class="header-sub">
+    <span><strong>RFP Number:</strong> IGS/FEVA/2025/001</span>
+    <span><strong>Issue Date:</strong> 10 March 2026</span>
+    <span><strong>Submitted to:</strong> Inspired Global Systems Ltd</span>
+    <span><strong>Submitted by:</strong> Inspired Delta Ltd</span>
+</div>
+
+<div class="toc">
+    <div class="card-header">Table of Contents</div>
+    <ol>
+        <li><a href="#section-a">Section A: Executive Summary</a></li>
+        <li><a href="#section-b">Section B: Technical Architecture & Approach</a></li>
+        <li><a href="#section-c">Section C: Geospatial Integration, Functional Scope & Delivery Model</a></li>
+        <li><a href="#section-d">Section D: Project Plan & Timeline</a></li>
+        <li><a href="#section-e">Section E: Commercial Proposal</a></li>
+        <li><a href="#section-f">Section F: Compliance and Final Submission Checklist</a></li>
+    </ol>
+</div>
+
+<h2 id="section-a">Section A: Executive Summary</h2>
+<div class="card no-break">
+    <p>Inspired Delta Ltd proposes a hybrid FEVA delivery model built around a <strong>Flutter Android field application</strong> for enumerators and supervisors, and a <strong>Python/Frappe backend</strong> for APIs, project management workflows, QA/QC review, reporting, export generation, and geospatial processing. This structure aligns directly with the FEVA RFP: the mobile layer satisfies the Android, offline, SQLite, and device-performance requirements, while the backend provides the structured workflow, auditability, GIS integration support, and data-delivery controls required by IGSL.</p>
+    <p>The solution is designed for development inside <strong>IGSL-owned GitHub repositories and IGSL-managed infrastructure</strong>. Inspired Delta Ltd will work within IGSL’s engineering environment, comply with IGSL branching, testing, and code-quality requirements, and deliver all source code, GIS integration scripts, migration logic, and technical documentation into IGSL-controlled repositories.</p>
+    <div class="grid-3">
+        <div class="card" style="margin-bottom:0;">
+            <span class="pill">Field Compliant</span>
+            <p class="muted">Flutter Android app with offline SQLite storage, sync queue, GPS capture, and photo evidence.</p>
+        </div>
+        <div class="card" style="margin-bottom:0;">
+            <span class="pill">Backend Strong</span>
+            <p class="muted">Python/Frappe backend for APIs, dashboards, QA/QC, exports, and supervisory workflows.</p>
+        </div>
+        <div class="card" style="margin-bottom:0;">
+            <span class="pill">GIS Ready</span>
+            <p class="muted">Shapefile ingestion, boundary validation, GeoJSON/Shapefile exports, and live GIS connectivity support.</p>
+        </div>
+    </div>
+    <p style="margin-top:1rem;"><strong>Delivery commitment:</strong> Week 1 design package, Week 3 functional prototype, Week 4 beta, Week 5 pilot in at least 2 LGAs, Week 6 production release, and Week 7 enumerator/supervisor training completion.</p>
+</div>
+
+<h2 id="section-b">Section B: Technical Architecture & Approach</h2>
+<div class="grid-2">
+    <div class="card">
+        <h3>Frontend / Mobile Layer</h3>
+        <ul>
+            <li>Flutter Android application for enumerators and supervisors.</li>
+            <li>Offline-first local storage using SQLite for records, media queue metadata, and reference layers.</li>
+            <li>GPS capture with accuracy indicator and minimum 5 decimal-place precision handling.</li>
+            <li>Geotagged photo capture with compression and deferred sync.</li>
+            <li>Offline boundary lookup against preloaded State Shapefile-derived layers.</li>
+        </ul>
+    </div>
+    <div class="card">
+        <h3>Backend / Platform Layer</h3>
+        <ul>
+            <li>Python/Frappe backend exposing REST APIs for sync, authentication, workflows, dashboards, and exports.</li>
+            <li>PostgreSQL/PostGIS on IGSL-provisioned infrastructure for live project data and spatial operations.</li>
+            <li>Supervisor review, QA/QC workflows, duplicate checks, audit trail, and project dashboards.</li>
+            <li>GeoJSON and Shapefile export services aligned to WGS 84 / EPSG:4326.</li>
+            <li>Shapefile ingestion and GIS integration scripts committed to IGSL-owned repositories.</li>
+        </ul>
+    </div>
+</div>
+
+<h3>Stack Summary</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Layer</th>
+            <th>Proposed Technology</th>
+            <th>Why It Fits FEVA</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Mobile App</td>
+            <td>Flutter for Android deployment</td>
+            <td>Matches RFP mobile-framework requirement and supports robust offline capture, media, GPS, and sync logic.</td>
+        </tr>
+        <tr>
+            <td>On-Device Storage</td>
+            <td>SQLite</td>
+            <td>Matches RFP offline requirement for local persistence and queued synchronization.</td>
+        </tr>
+        <tr>
+            <td>Backend API</td>
+            <td>Python/Frappe REST services</td>
+            <td>RFP permits Python backend and Frappe gives fast workflow and admin delivery inside IGSL infrastructure.</td>
+        </tr>
+        <tr>
+            <td>Spatial Data Store</td>
+            <td>PostgreSQL with PostGIS</td>
+            <td>Supports shapefile ingestion, boundary containment checks, CRS normalization, and export generation.</td>
+        </tr>
+        <tr>
+            <td>GIS Processing</td>
+            <td>Python GIS libraries, GDAL/OGR-compatible tooling</td>
+            <td>Supports shapefile preprocessing, reprojection, packaging, and spatial validation workflows.</td>
+        </tr>
+        <tr>
+            <td>Map / Boundary Rendering</td>
+            <td>Flutter-compatible map layer plus offline vector/raster boundary packages</td>
+            <td>Supports offline field reference and later live WMS/WFS/REST integration when online.</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2 id="section-c">Section C: Geospatial Integration, Functional Scope & Delivery Model</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Area</th>
+            <th>Approach</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Shapefile Ingestion</td>
+            <td>Backend ingestion pipeline imports administrative boundaries, LGA extents, wards, and postcode zones into PostGIS. Incoming datasets are normalized to WGS 84 / EPSG:4326 and repackaged into lightweight mobile boundary assets.</td>
+        </tr>
+        <tr>
+            <td>Offline Boundary Use</td>
+            <td>Flutter app ships with preloaded State boundary layers for offline LGA/ward/zone assignment and containment checks at point of capture.</td>
+        </tr>
+        <tr>
+            <td>Live GIS Connectivity</td>
+            <td>Backend and mobile integration plan supports WMS, WFS, or documented REST access to the State GIS platform when online, with a configuration layer designed to minimise code changes as the GIS platform matures.</td>
+        </tr>
+        <tr>
+            <td>Spatial Validation</td>
+            <td>Street and building GPS points are validated against boundary polygons in real time where possible, and revalidated server-side during sync and QA/QC review. Out-of-bound captures are flagged before approval.</td>
+        </tr>
+        <tr>
+            <td>NIPOST Postcode Validation</td>
+            <td>Preloaded postcode boundary layers are checked against GPS capture and reconciled with State administrative boundaries, with discrepancies logged for supervisory review.</td>
+        </tr>
+        <tr>
+            <td>Monthly and Final Exports</td>
+            <td>Backend generates GeoJSON, Shapefile, and CSV exports plus photo folder outputs in the structures required by IGSL.</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>Functional Scope</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Module</th>
+            <th>Planned Capability</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Street Enumeration</td>
+            <td>Street name, type, condition, zone assignment, administrative zone, GPS capture, and geotagged street photo.</td>
+            <td class="status-yes">In scope</td>
+        </tr>
+        <tr>
+            <td>Building Enumeration</td>
+            <td>Building reference ID, parent street link, type, floors, units, condition, frontage photo, and supplementary photos.</td>
+            <td class="status-yes">In scope</td>
+        </tr>
+        <tr>
+            <td>Offline Capture & Sync</td>
+            <td>Queued local storage, delayed media upload, sync conflict handling, record status tracking, and retry logic.</td>
+            <td class="status-yes">In scope</td>
+        </tr>
+        <tr>
+            <td>Supervisor QA/QC</td>
+            <td>Spot-check workflow, flagged-record review, duplicate detection, mandatory-field checks, and daily performance monitoring.</td>
+            <td class="status-yes">In scope</td>
+        </tr>
+        <tr>
+            <td>Project Dashboards</td>
+            <td>Daily and weekly progress by LGA and enumerator, productivity metrics, quality metrics, and coverage visibility.</td>
+            <td class="status-yes">In scope</td>
+        </tr>
+        <tr>
+            <td>Export & Delivery</td>
+            <td>Monthly dataset exports, photo packaging, quality reports, final certified delivery set, and data dictionary support.</td>
+            <td class="status-yes">In scope</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>Project Management Features</h2>
+<div class="grid-2">
+    <div class="card">
+        <h3>Operational Controls</h3>
+        <ul>
+            <li>Role-based authentication for enumerators, supervisors, and administrators.</li>
+            <li>Daily and weekly progress dashboards by enumerator and LGA.</li>
+            <li>Configurable dropdown values managed centrally and pushed without app redeployment where applicable.</li>
+            <li>Helpdesk issue logging and field-support tracking during enumeration.</li>
+        </ul>
+    </div>
+    <div class="card">
+        <h3>QA / QC Controls</h3>
+        <ul>
+            <li>Minimum 5% supervisor sampling workflow.</li>
+            <li>Duplicate GPS proximity checks for building captures.</li>
+            <li>Automated validation for photo presence, GPS precision, street-building linkage, and boundary containment.</li>
+            <li>Coverage and quality reporting for monthly delivery to IGSL.</li>
+        </ul>
+    </div>
+</div>
+
+<h2>Development Environment Plan</h2>
+<div class="card">
+    <p>Inspired Delta Ltd will develop FEVA entirely within IGSL’s GitHub and infrastructure environment. All mobile, backend, spatial, export, and integration code will be committed to IGSL-owned repositories only. The delivery team will comply with IGSL’s branching model, code review controls, CI checks, unit/integration test requirements, dependency scanning, and contributor 2FA requirements.</p>
+    <ul>
+        <li>All source code, database migrations, spatial scripts, and build/deploy assets stored in IGSL repositories.</li>
+        <li>No vendor-owned hosting, CI/CD, or DevOps environment used for production delivery.</li>
+        <li>Repository contents include mobile app source, backend source, sync logic, spatial processing scripts, tests, and GIS interface documentation.</li>
+    </ul>
+</div>
+
+<h2>Deployment, Training, and Support</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Area</th>
+            <th>Approach</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Pilot Deployment</td>
+            <td>Field pilot across at least 2 LGAs in Week 5, with structured UAT findings, remediation log, and readiness recommendation before production release.</td>
+        </tr>
+        <tr>
+            <td>Enumerator Training</td>
+            <td>3-day training programme for enumerators and supervisors, including device use, offline capture practice, sync workflow, and QA expectations.</td>
+        </tr>
+        <tr>
+            <td>Training Materials</td>
+            <td>Printed quick-reference guides, digital job aids, and supervisor workflow notes.</td>
+        </tr>
+        <tr>
+            <td>Helpdesk Support</td>
+            <td>08:00-18:00, 6 days per week during the enumeration phase, with escalation to project and technical leads for critical field-blocking issues.</td>
+        </tr>
+        <tr>
+            <td>Monthly Data Delivery</td>
+            <td>GeoJSON and Shapefile outputs, photo packs, LGA coverage report, and quality metrics report delivered to IGSL monthly.</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2 id="section-d" class="page-break">Section D: Project Plan & Timeline</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Week / Period</th>
+            <th>Deliverable</th>
+            <th>Activities</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="text-right">Week 1</td>
+            <td>Design package</td>
+            <td>UI/UX mockups, workflow diagrams, data schema, shapefile integration design, repository onboarding, and environment alignment with IGSL.</td>
+        </tr>
+        <tr>
+            <td class="text-right">Weeks 2-3</td>
+            <td>Functional prototype</td>
+            <td>Flutter street/building capture, GPS, photo evidence, offline local storage, sync foundation, and boundary-layer operation.</td>
+        </tr>
+        <tr>
+            <td class="text-right">Week 4</td>
+            <td>Beta version</td>
+            <td>Full offline sync, supervisor dashboard, QA/QC workflow, GIS connectivity module, duplicate checks, and export pipeline hardening.</td>
+        </tr>
+        <tr>
+            <td class="text-right">Week 5</td>
+            <td>Field pilot and UAT</td>
+            <td>Pilot in minimum 2 LGAs, issue resolution, production release candidate, and remediation report.</td>
+        </tr>
+        <tr>
+            <td class="text-right">Week 6</td>
+            <td>Production Release v1.0</td>
+            <td>Deployment to IGSL infrastructure, stabilization, and operational handoff into live use.</td>
+        </tr>
+        <tr>
+            <td class="text-right">Week 7</td>
+            <td>Training completion</td>
+            <td>Enumerator and supervisor training completed for minimum 50 users.</td>
+        </tr>
+        <tr>
+            <td class="text-right">Months 2-8</td>
+            <td>Operational support</td>
+            <td>Monthly export deliveries, helpdesk support, field issue management, and quality reporting.</td>
+        </tr>
+        <tr>
+            <td class="text-right">Month 8</td>
+            <td>Final certified dataset</td>
+            <td>Final GeoJSON, Shapefile, CSV, photo library, data dictionary, GIS integration documentation, QA/QC report, and closeout report.</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>Risk Register</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Risk</th>
+            <th>Impact</th>
+            <th>Mitigation</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Late delivery or revision of State shapefiles</td>
+            <td>Delays to boundary validation and offline packaging</td>
+            <td>Design ingestion pipeline for repeatable updates, begin with provisional datasets, and version all boundary packages.</td>
+        </tr>
+        <tr>
+            <td>Unstable field connectivity</td>
+            <td>Delayed uploads and supervision visibility</td>
+            <td>Offline-first mobile architecture with local queueing, retry logic, and sync status indicators.</td>
+        </tr>
+        <tr>
+            <td>GPS quality variation by environment</td>
+            <td>Reduced spatial accuracy</td>
+            <td>Use accuracy thresholds, supervisor review flags, and server-side revalidation before approval.</td>
+        </tr>
+        <tr>
+            <td>High-volume photo and record sync load</td>
+            <td>Performance bottlenecks during rollout</td>
+            <td>Compress media, separate metadata from asset upload, and stage sync with retry and batching logic.</td>
+        </tr>
+        <tr>
+            <td>Field-user adoption issues</td>
+            <td>Slow data capture and quality inconsistencies</td>
+            <td>Run practical training, pilot before full rollout, provide guides, and maintain active helpdesk support.</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>Team Composition</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Role</th>
+            <th>Assigned Lead</th>
+            <th>Proposal Note</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>Project Manager</td><td>Taiwo Eugene Akinosho</td><td>Delivery governance, stakeholder coordination, milestone and risk management.</td></tr>
+        <tr><td>Lead Developer / Architect</td><td>Lucky Okpuno</td><td>Backend architecture, API design, platform and delivery integration.</td></tr>
+        <tr><td>Mobile Lead</td><td>TK Emiko</td><td>Flutter field app, offline sync, device-side data flow, and mobile release engineering.</td></tr>
+        <tr><td>QA Lead</td><td>Rose Soyinka</td><td>Test planning, UAT support, quality gates, and pilot-readiness control.</td></tr>
+        <tr><td>GIS Specialist</td><td>[Insert name before final submission]</td><td>Shapefile ingestion, CRS handling, spatial validation, and GIS connectivity specification.</td></tr>
+        <tr><td>Trainer / Field Enablement Lead</td><td>[Insert name before final submission]</td><td>Enumerator training, quick-reference materials, and field support coordination.</td></tr>
+    </tbody>
+</table>
+
+<p class="muted">Final submission appendices should include CVs for Project Manager, Lead Developer, GIS Specialist, and Trainer, plus at least three relevant client references.</p>
+
+<h2 id="section-e" class="page-break">Section E: Commercial Proposal</h2>
+<div class="card">
+    <p>All pricing below is an estimate in Nigerian Naira (&#8358;) using a planning conversion rate of <strong>&#8358;1,400 per US$1</strong>. These figures should be commercially approved before formal submission.</p>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Cost Item</th>
+            <th>Estimated Cost (&#8358;)</th>
+            <th>Note</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>1. Application Development</td><td class="text-right">&#8358;49,000,000</td><td>Flutter mobile app, backend APIs, offline sync, GPS/photo capture, shapefile and GIS integration modules.</td></tr>
+        <tr><td>2. Configuration and Integration</td><td class="text-right">&#8358;7,000,000</td><td>IGSL repository onboarding, CI alignment, environment configuration, and GIS/backend integration setup.</td></tr>
+        <tr><td>3. Training Programme</td><td class="text-right">&#8358;4,200,000</td><td>Enumerator and supervisor training, materials, and pilot support.</td></tr>
+        <tr><td>4. Project Management and QA</td><td class="text-right">&#8358;9,800,000</td><td>Project governance, testing, UAT support, pilot management, and reporting.</td></tr>
+        <tr><td>5. Helpdesk / Support (per month)</td><td class="text-right">&#8358;2,100,000</td><td>Enumeration-phase support; estimated total over 8 months: &#8358;16,800,000.</td></tr>
+        <tr><td>6. Optional Enumerator Devices</td><td class="text-right">&#8358;0</td><td>Not included; can be quoted separately if IGSL requests vendor-supplied devices.</td></tr>
+        <tr><td>7. Travel and Logistics</td><td class="text-right">&#8358;5,600,000</td><td>Workshops, pilot support, training visits, and escalation support.</td></tr>
+        <tr><td>8. Contingency</td><td class="text-right">&#8358;4,900,000</td><td>For controlled change handling and integration uncertainty.</td></tr>
+        <tr style="font-weight:700; background:#e6f1f7;"><td>TOTAL ESTIMATED CONTRACT VALUE</td><td class="text-right">&#8358;97,300,000</td><td>Includes 8 months of helpdesk support.</td></tr>
+    </tbody>
+</table>
+
+<h3>Proposed Payment Schedule</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Milestone</th>
+            <th>Payment</th>
+            <th>Proposal Position</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>Contract Signing</td><td class="text-right">20%</td><td>Accepted</td></tr>
+        <tr><td>Prototype with Shapefile Integration (Week 3)</td><td class="text-right">20%</td><td>Accepted</td></tr>
+        <tr><td>Production Release v1.0 (Week 6)</td><td class="text-right">30%</td><td>Accepted</td></tr>
+        <tr><td>Final Certified Dataset Delivered to IGSL (Month 8)</td><td class="text-right">30%</td><td>Accepted</td></tr>
+    </tbody>
+</table>
+
+<h2 id="section-f">Section F: Compliance and Final Submission Checklist</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Required Item</th>
+            <th>Status</th>
+            <th>Action Before Submission</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>Company registration documents</td><td class="status-note">Pending</td><td>Attach CAC certificate</td></tr>
+        <tr><td>Tax clearance certificate</td><td class="status-note">Pending</td><td>Attach current-year tax clearance</td></tr>
+        <tr><td>Three relevant references</td><td class="status-note">Pending</td><td>Attach mobile/GIS/spatial project references</td></tr>
+        <tr><td>Conflict of interest declaration</td><td class="status-note">Pending</td><td>Attach signed declaration</td></tr>
+        <tr><td>Named GIS Specialist and Trainer</td><td class="status-note">Pending</td><td>Replace placeholders in team section</td></tr>
+        <tr><td>Technical and Commercial PDFs</td><td class="status-note">Pending</td><td>Split final pack into separate PDF attachments</td></tr>
+    </tbody>
+</table>
+
+<div class="footer-note">
+    <span>FEVA Proposal Draft</span>
+    <span>Inspired Delta Ltd</span>
+    <span>Flutter Mobile + Python/Frappe Backend</span>
+    <span>IGSL GitHub / IGSL Infrastructure Delivery Model</span>
+</div>
+
+</body>
+</html>

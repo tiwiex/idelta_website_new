@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>DIGISTEM System Architecture</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 12px;
+      line-height: 1.45;
+      color: #222;
+      margin: 0;
+      padding: 0;
+      background: #fff;
+    }
+
+    .page {
+      width: 1000px;
+      margin: 0 auto;
+      padding: 20px 24px 30px 24px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 24px;
+      color: #0b4ea2;
+      margin: 0 0 6px 0;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 13px;
+      color: #555;
+      margin-bottom: 18px;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: bold;
+      color: #0b4ea2;
+      border-bottom: 2px solid #0b4ea2;
+      padding-bottom: 4px;
+      margin: 18px 0 10px 0;
+    }
+
+    .arch-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      margin-bottom: 16px;
+    }
+
+    .arch-table th,
+    .arch-table td {
+      border: 1px solid #999;
+      vertical-align: top;
+      padding: 8px;
+    }
+
+    .arch-table th {
+      background: #dbe8f8;
+      text-align: center;
+      font-size: 13px;
+      color: #0b4ea2;
+    }
+
+    .box-title {
+      font-weight: bold;
+      color: #111;
+      margin-bottom: 4px;
+    }
+
+    .small-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: bold;
+      color: #fff;
+      background: #0b4ea2;
+      padding: 2px 6px;
+      margin-bottom: 6px;
+    }
+
+    .green { background: #0a7a43; }
+    .orange { background: #b35a00; }
+    .purple { background: #6b3fa0; }
+    .teal { background: #0b7d7d; }
+
+    ul {
+      margin: 4px 0 0 16px;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 3px;
+    }
+
+    .flow-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      margin-top: 8px;
+      margin-bottom: 16px;
+    }
+
+    .flow-table td {
+      border: 1px solid #999;
+      text-align: center;
+      vertical-align: middle;
+      padding: 10px 6px;
+      font-weight: bold;
+      font-size: 11px;
+    }
+
+    .arrow {
+      width: 40px;
+      font-size: 20px;
+      color: #0b4ea2;
+      border: none !important;
+    }
+
+    .notes-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    .notes-table td {
+      border: 1px solid #999;
+      vertical-align: top;
+      padding: 10px;
+    }
+
+    .legend-item {
+      margin-bottom: 6px;
+    }
+
+    .swatch {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      margin-right: 6px;
+      vertical-align: middle;
+      background: #0b4ea2;
+    }
+
+    .swatch.green { background: #0a7a43; }
+    .swatch.orange { background: #b35a00; }
+    .swatch.purple { background: #6b3fa0; }
+    .swatch.teal { background: #0b7d7d; }
+
+    .page-break-avoid {
+      page-break-inside: avoid;
+    }
+
+    .muted {
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <h1>DIGISTEM System Architecture</h1>
+    <div class="subtitle">Digital Street Enumeration &amp; Management System</div>
+
+    <div class="section-title">1. Architecture Overview</div>
+    <table class="arch-table page-break-avoid">
+      <tr>
+        <th>User Layer</th>
+        <th>Field Capture Layer</th>
+        <th>Core Platform Layer</th>
+        <th>Integration Layer</th>
+        <th>Output &amp; Management Layer</th>
+      </tr>
+      <tr>
+        <td>
+          <div class="small-tag">USERS</div>
+          <div class="box-title">Enumerators</div>
+          <ul>
+            <li>Verify streets on the ground</li>
+            <li>Count houses and structures</li>
+            <li>Classify building types</li>
+            <li>Capture photos and location data</li>
+          </ul>
+
+          <div class="box-title" style="margin-top:10px;">Supervisors</div>
+          <ul>
+            <li>Review submissions</li>
+            <li>Monitor field progress</li>
+            <li>Approve or return records</li>
+          </ul>
+
+          <div class="box-title" style="margin-top:10px;">Administrators</div>
+          <ul>
+            <li>Manage master data</li>
+            <li>Control workflows</li>
+            <li>Plan implementation activities</li>
+          </ul>
+        </td>
+
+        <td>
+          <div class="small-tag green">PWA</div>
+          <div class="box-title">Progressive Web Interface</div>
+          <ul>
+            <li>Browser-based field capture</li>
+            <li>Street verification forms</li>
+            <li>Building enumeration forms</li>
+            <li>Low-connectivity support</li>
+            <li>Secure synchronization</li>
+          </ul>
+
+          <div class="box-title" style="margin-top:10px;">Captured Data</div>
+          <ul>
+            <li>Street existence and type</li>
+            <li>Left/right building counts</li>
+            <li>Residential / commercial / open space</li>
+            <li>Commercial category details</li>
+            <li>Photo and GPS evidence</li>
+          </ul>
+        </td>
+
+        <td>
+          <div class="small-tag orange">CORE PLATFORM</div>
+          <div class="box-title">DIGISTEM Application</div>
+          <ul>
+            <li>Street registry</li>
+            <li>Building registry</li>
+            <li>Enumeration sessions</li>
+            <li>Review and approval workflows</li>
+            <li>Central record management</li>
+          </ul>
+
+          <div class="box-title" style="margin-top:10px;">Central Database</div>
+          <ul>
+            <li>Street records</li>
+            <li>Building records</li>
+            <li>GPS coordinates</li>
+            <li>Photo references</li>
+            <li>Address planning data</li>
+          </ul>
+        </td>
+
+        <td>
+          <div class="small-tag purple">INTEGRATIONS</div>
+          <div class="box-title">GIS / Shapefile Data</div>
+          <ul>
+            <li>Import existing street geometry</li>
+            <li>Link records to mapped streets</li>
+            <li>Support spatial validation</li>
+          </ul>
+
+          <div class="box-title" style="margin-top:10px;">Supporting Services</div>
+          <ul>
+            <li>Photo / file storage</li>
+            <li>Geolocation services</li>
+            <li>API-based data exchange</li>
+          </ul>
+        </td>
+
+        <td>
+          <div class="small-tag teal">OUTPUTS</div>
+          <div class="box-title">Validation &amp; Quality Control</div>
+          <ul>
+            <li>Record review and cleaning</li>
+            <li>Exception handling</li>
+            <li>Approval dashboards</li>
+          </ul>
+
+          <div class="box-title" style="margin-top:10px;">Planning &amp; Tracking</div>
+          <ul>
+            <li>Street naming workflow</li>
+            <li>House numbering plan</li>
+            <li>Street sign planning</li>
+            <li>Implementation progress tracking</li>
+          </ul>
+
+          <div class="box-title" style="margin-top:10px;">Reporting</div>
+          <ul>
+            <li>Enumeration progress reports</li>
+            <li>Street totals and validation status</li>
+            <li>Deployment dashboards</li>
+          </ul>
+        </td>
+      </tr>
+    </table>
+
+    <div class="section-title">2. End-to-End Process Flow</div>
+    <table class="flow-table page-break-avoid">
+      <tr>
+        <td>Existing GIS / Street Data Loaded</td>
+        <td class="arrow">→</td>
+        <td>Enumerator Captures Field Data</td>
+        <td class="arrow">→</td>
+        <td>Data Syncs to Central Platform</td>
+        <td class="arrow">→</td>
+        <td>Supervisor / Admin Validation</td>
+        <td class="arrow">→</td>
+        <td>Address Planning &amp; Numbering</td>
+        <td class="arrow">→</td>
+        <td>Signage / Numbering Tracking</td>
+      </tr>
+    </table>
+
+    <div class="section-title">3. Architecture Notes</div>
+    <table class="notes-table page-break-avoid">
+      <tr>
+        <td style="width:70%;">
+          <ul>
+            <li>The field capture interface is designed as a <strong>Progressive Web Application (PWA)</strong>, allowing enumerators to use a browser-based interface instead of a native mobile application.</li>
+            <li>The platform supports the full operating lifecycle: <strong>enumeration, validation, address planning, signage deployment, and reporting</strong>.</li>
+            <li>GIS integration allows reuse of existing street and map datasets.</li>
+            <li>The central application layer supports workflow management, approval processes, dashboards, and controlled data administration.</li>
+            <li>The architecture is suitable for phased delivery, starting with business analysis and platform setup, followed by field capture and implementation tracking.</li>
+          </ul>
+        </td>
+        <td style="width:30%;">
+          <div class="box-title">Legend</div>
+          <div class="legend-item"><span class="swatch"></span> User roles and actors</div>
+          <div class="legend-item"><span class="swatch green"></span> Field capture layer</div>
+          <div class="legend-item"><span class="swatch orange"></span> Core platform layer</div>
+          <div class="legend-item"><span class="swatch purple"></span> Integration layer</div>
+          <div class="legend-item"><span class="swatch teal"></span> Output and management layer</div>
+          <p class="muted" style="margin-top:12px;">
+            This version is optimized for HTML-to-PDF conversion using wkhtmltopdf.
+          </p>
+        </td>
+      </tr>
+    </table>
+  </div>
+</body>
+</html>

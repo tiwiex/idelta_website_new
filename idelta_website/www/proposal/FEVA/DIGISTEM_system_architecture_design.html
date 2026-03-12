@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DIGISTEM System Architecture</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #cbd5e1;
+      --accent: #1d4ed8;
+      --accent-soft: #dbeafe;
+      --green: #065f46;
+      --green-soft: #d1fae5;
+      --orange: #9a3412;
+      --orange-soft: #ffedd5;
+      --purple: #5b21b6;
+      --purple-soft: #ede9fe;
+      --shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 32px 20px 48px;
+    }
+
+    .container {
+      max-width: 1350px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .header h1 {
+      margin: 0 0 8px;
+      font-size: 34px;
+      color: var(--accent);
+      letter-spacing: 0.3px;
+    }
+
+    .header p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .architecture {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .layer {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px 16px 16px;
+      border-top: 6px solid var(--accent);
+      min-height: 100%;
+    }
+
+    .layer.users { border-top-color: var(--accent); }
+    .layer.capture { border-top-color: var(--green); }
+    .layer.platform { border-top-color: var(--orange); }
+    .layer.integration { border-top-color: var(--purple); }
+    .layer.outputs { border-top-color: #0f766e; }
+
+    .layer-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    .layer-subtitle {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 14px;
+      line-height: 1.4;
+    }
+
+    .box {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 12px;
+      background: #fff;
+    }
+
+    .box h3 {
+      margin: 0 0 8px;
+      font-size: 15px;
+    }
+
+    .box ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .box li {
+      margin-bottom: 6px;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    .tag.blue { background: var(--accent-soft); color: var(--accent); }
+    .tag.green { background: var(--green-soft); color: var(--green); }
+    .tag.orange { background: var(--orange-soft); color: var(--orange); }
+    .tag.purple { background: var(--purple-soft); color: var(--purple); }
+    .tag.teal { background: #ccfbf1; color: #115e59; }
+
+    .flow {
+      margin: 28px 0;
+      background: var(--card);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+      padding: 18px;
+    }
+
+    .flow h2 {
+      margin: 0 0 14px;
+      font-size: 20px;
+      color: var(--accent);
+    }
+
+    .flow-steps {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
+      align-items: center;
+    }
+
+    .step {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px 12px;
+      text-align: center;
+      min-height: 95px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      line-height: 1.4;
+      font-weight: bold;
+    }
+
+    .arrow {
+      text-align: center;
+      font-size: 28px;
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    .notes {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr;
+      gap: 18px;
+    }
+
+    .panel {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+
+    .panel h2 {
+      margin: 0 0 12px;
+      font-size: 20px;
+      color: var(--accent);
+    }
+
+    .panel ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .panel li {
+      margin-bottom: 8px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .legend {
+      display: grid;
+      gap: 10px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+    }
+
+    .swatch {
+      width: 18px;
+      height: 18px;
+      border-radius: 6px;
+    }
+
+    .swatch.blue { background: var(--accent); }
+    .swatch.green { background: var(--green); }
+    .swatch.orange { background: var(--orange); }
+    .swatch.purple { background: var(--purple); }
+    .swatch.teal { background: #0f766e; }
+
+    @media (max-width: 1200px) {
+      .architecture {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .flow-steps {
+        grid-template-columns: 1fr;
+      }
+
+      .arrow {
+        transform: rotate(90deg);
+      }
+
+      .notes {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .architecture {
+        grid-template-columns: 1fr;
+      }
+
+      .header h1 {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>DIGISTEM System Architecture</h1>
+      <p>Digital Street Enumeration & Management System</p>
+    </div>
+
+    <div class="architecture">
+      <div class="layer users">
+        <div class="layer-title">1. User Layer</div>
+        <div class="layer-subtitle">Primary actors interacting with the system</div>
+
+        <div class="box">
+          <span class="tag blue">FIELD USERS</span>
+          <h3>Enumerators</h3>
+          <ul>
+            <li>Verify streets on the ground</li>
+            <li>Capture house counts</li>
+            <li>Classify buildings</li>
+            <li>Upload photos</li>
+            <li>Capture GPS coordinates</li>
+          </ul>
+        </div>
+
+        <div class="box">
+          <span class="tag blue">SUPERVISION</span>
+          <h3>Supervisors</h3>
+          <ul>
+            <li>Review submitted records</li>
+            <li>Validate field entries</li>
+            <li>Monitor enumerator activity</li>
+            <li>Approve data for back-office processing</li>
+          </ul>
+        </div>
+
+        <div class="box">
+          <span class="tag blue">ADMINISTRATION</span>
+          <h3>Back Office / Admin</h3>
+          <ul>
+            <li>Clean and validate data</li>
+            <li>Manage street naming workflow</li>
+            <li>Plan signage and numbering</li>
+            <li>Track project implementation</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="layer capture">
+        <div class="layer-title">2. Field Capture Layer</div>
+        <div class="layer-subtitle">Web-based interface used by field teams</div>
+
+        <div class="box">
+          <span class="tag green">PWA</span>
+          <h3>Progressive Web Application</h3>
+          <ul>
+            <li>Responsive interface for phones and tablets</li>
+            <li>Street verification form</li>
+            <li>Building enumeration form</li>
+            <li>Offline-first or low-connectivity support</li>
+            <li>Sync to central platform</li>
+          </ul>
+        </div>
+
+        <div class="box">
+          <span class="tag green">DATA CAPTURE</span>
+          <h3>Captured Information</h3>
+          <ul>
+            <li>Street existence confirmation</li>
+            <li>Street type: local, collector, arterial</li>
+            <li>Buildings left/right by entry direction</li>
+            <li>Residential / commercial / open space</li>
+            <li>Commercial sub-type details</li>
+          </ul>
+        </div>
+
+        <div class="box">
+          <span class="tag green">MEDIA & LOCATION</span>
+          <h3>Evidence Collection</h3>
+          <ul>
+            <li>Photo attachments</li>
+            <li>Geotagging</li>
+            <li>Timestamp logging</li>
+            <li>Enumerator activity trace</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="layer platform">
+        <div class="layer-title">3. Core Platform Layer</div>
+        <div class="layer-subtitle">Central system for workflows, records and reporting</div>
+
+        <div class="box">
+          <span class="tag orange">APPLICATION CORE</span>
+          <h3>DIGISTEM Platform</h3>
+          <ul>
+            <li>Street registry</li>
+            <li>Building registry</li>
+            <li>Enumeration sessions</li>
+            <li>Photo and evidence storage references</li>
+            <li>Validation workflows</li>
+          </ul>
+        </div>
+
+        <div class="box">
+          <span class="tag orange">BUSINESS LOGIC</span>
+          <h3>Workflow Engine</h3>
+          <ul>
+            <li>Submission and review workflow</li>
+            <li>Supervisor approval</li>
+            <li>Data correction and resubmission</li>
+            <li>Status tracking</li>
+            <li>Implementation progress updates</li>
+          </ul>
+        </div>
+
+        <div class="box">
+          <span class="tag orange">DATABASE</span>
+          <h3>Central Data Store</h3>
+          <ul>
+            <li>Street master data</li>
+            <li>Building and unit records</li>
+            <li>GPS coordinates</li>
+            <li>Photo metadata</li>
+            <li>Address and signage plans</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="layer integration">
+        <div class="layer-title">4. Integration Layer</div>
+        <div class="layer-subtitle">External services and data sources connected to the platform</div>
+
+        <div class="box">
+          <span class="tag purple">GIS</span>
+          <h3>GIS / Shapefile Integration</h3>
+          <ul>
+            <li>Import existing street geometries</li>
+            <li>Match field records to map features</li>
+            <li>Expose street boundaries and routes</li>
+          </ul>
+        </div>
+
+        <div class="box">
+          <span class="tag purple">MEDIA STORAGE</span>
+          <h3>File / Image Storage</h3>
+          <ul>
+            <li>Store photos and documents</li>
+            <li>Link media to street and building records</li>
+            <li>Support secure access</li>
+          </ul>
+        </div>
+
+        <div class="box">
+          <span class="tag purple">LOCATION SERVICES</span>
+          <h3>Geolocation Services</h3>
+          <ul>
+            <li>Browser/device GPS capture</li>
+            <li>Coordinate validation</li>
+            <li>Map display support</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="layer outputs">
+        <div class="layer-title">5. Output & Management Layer</div>
+        <div class="layer-subtitle">Decision support, planning and implementation tracking</div>
+
+        <div class="box">
+          <span class="tag teal">QUALITY CONTROL</span>
+          <h3>Validation & Review</h3>
+          <ul>
+            <li>Data cleansing</li>
+            <li>Exception handling</li>
+            <li>Approval dashboard</li>
+            <li>Record completeness checks</li>
+          </ul>
+        </div>
+
+        <div class="box">
+          <span class="tag teal">PLANNING</span>
+          <h3>Address Management</h3>
+          <ul>
+            <li>Street naming workflow</li>
+            <li>House numbering plan</li>
+            <li>Signage placement planning</li>
+          </ul>
+        </div>
+
+        <div class="box">
+          <span class="tag teal">REPORTING</span>
+          <h3>Dashboards & Reports</h3>
+          <ul>
+            <li>Enumeration progress</li>
+            <li>Validated street totals</li>
+            <li>Installation progress tracking</li>
+            <li>Operational performance metrics</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="flow">
+      <h2>End-to-End Process Flow</h2>
+      <div class="flow-steps">
+        <div class="step">Existing Street / GIS Data Loaded</div>
+        <div class="arrow">→</div>
+        <div class="step">Enumerator Captures Field Data in PWA</div>
+        <div class="arrow">→</div>
+        <div class="step">Data Syncs to Central Platform</div>
+        <div class="arrow">→</div>
+        <div class="step">Supervisor / Admin Validates Records</div>
+        <div class="arrow">→</div>
+        <div class="step">Street Naming & House Number Planning</div>
+        <div class="arrow">→</div>
+        <div class="step">Signage / Numbering Implementation Tracking</div>
+      </div>
+    </div>
+
+    <div class="notes">
+      <div class="panel">
+        <h2>Architecture Notes</h2>
+        <ul>
+          <li>The field layer is designed as a <strong>Progressive Web Application (PWA)</strong>, so enumerators use a browser-based interface rather than a native mobile app.</li>
+          <li>The core platform can be implemented with an ERP/workflow backend that manages structured data, approvals, reporting and administration.</li>
+          <li>GIS integration supports reuse of existing shapefiles and mapping datasets.</li>
+          <li>The system supports a full lifecycle approach: <strong>enumeration, validation, address planning, signage deployment, and reporting</strong>.</li>
+          <li>The design is suitable for phased delivery, starting from business analysis and data capture, then extending into project tracking and implementation management.</li>
+        </ul>
+      </div>
+
+      <div class="panel">
+        <h2>Legend</h2>
+        <div class="legend">
+          <div class="legend-item"><span class="swatch blue"></span> User roles and operational actors</div>
+          <div class="legend-item"><span class="swatch green"></span> Field capture and PWA interface</div>
+          <div class="legend-item"><span class="swatch orange"></span> Core application platform and workflows</div>
+          <div class="legend-item"><span class="swatch purple"></span> External integrations and supporting services</div>
+          <div class="legend-item"><span class="swatch teal"></span> Outputs, validation and planning functions</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
