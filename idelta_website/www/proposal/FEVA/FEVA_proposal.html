@@ -15,17 +15,22 @@
             --ink: #173142;
             --ink-soft: #38576a;
             --accent: #176087;
+            --accent-strong: #0f4f70;
             --accent-soft: #dbeaf3;
+            --accent-glow: #edf7fc;
             --surface: #f7fbfd;
             --border: #cadbe6;
             --success: #1f6c45;
             --warn: #8a6112;
+            --shadow: 0 12px 28px rgba(15, 46, 66, 0.08);
         }
 
         body {
             font-family: "Segoe UI", Arial, sans-serif;
             color: var(--ink);
-            background: #fff;
+            background:
+                radial-gradient(circle at top right, #eef8fd 0, #eef8fd 18%, transparent 19%),
+                linear-gradient(180deg, #f9fcfe 0%, #ffffff 20%);
             max-width: 1180px;
             margin: 0 auto;
             padding: 0.45in 0.35in;
@@ -105,10 +110,11 @@
             justify-content: space-between;
             gap: 0.5rem 1rem;
             padding: 0.9rem 1.15rem;
-            background: #eff7fb;
+            background: linear-gradient(135deg, #eff7fb, #f8fcff);
             border: 1px solid var(--border);
             border-radius: 16px;
             color: var(--ink-soft);
+            box-shadow: var(--shadow);
         }
 
         .footer-note {
@@ -122,6 +128,7 @@
             border-radius: 14px;
             padding: 1rem 1.1rem;
             margin-bottom: 0.95rem;
+            box-shadow: var(--shadow);
         }
 
         .card-header {
@@ -132,11 +139,12 @@
         }
 
         .toc {
-            background: #f3f9fd;
+            background: linear-gradient(180deg, #f3f9fd, #fbfdff);
             border: 1px solid var(--border);
             border-radius: 14px;
             padding: 1rem 1.1rem;
             margin: 1rem 0 1.2rem;
+            box-shadow: var(--shadow);
         }
 
         .toc ol {
@@ -166,7 +174,7 @@
 
         .pill {
             display: inline-block;
-            background: var(--accent);
+            background: linear-gradient(135deg, var(--accent), var(--accent-strong));
             color: #fff;
             border-radius: 999px;
             padding: 0.18rem 0.72rem;
@@ -193,6 +201,238 @@
             text-align: right;
             white-space: nowrap;
         }
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            background:
+                linear-gradient(135deg, rgba(23, 96, 135, 0.96), rgba(15, 79, 112, 0.95)),
+                linear-gradient(180deg, #1a638a, #124860);
+            color: #fff;
+            border-radius: 18px;
+            padding: 1.25rem 1.3rem;
+            margin: 1rem 0 1.2rem;
+            box-shadow: 0 18px 36px rgba(12, 53, 75, 0.22);
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            right: -40px;
+            top: -40px;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .hero h2 {
+            color: #fff;
+            border-bottom: none;
+            margin: 0 0 0.4rem;
+            padding: 0;
+        }
+
+        .hero p {
+            margin-bottom: 0.45rem;
+            max-width: 900px;
+        }
+
+        .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.55rem;
+            margin-top: 0.8rem;
+        }
+
+        .hero-chip {
+            display: inline-block;
+            padding: 0.28rem 0.72rem;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            font-size: 0.76rem;
+            font-weight: 700;
+        }
+
+        .timeline-visual {
+            background: linear-gradient(180deg, var(--accent-glow), #ffffff);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1rem 1.1rem 1.15rem;
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow);
+        }
+
+        .timeline-track {
+            display: flex;
+            min-height: 3rem;
+            border-radius: 999px;
+            overflow: hidden;
+            margin-top: 0.85rem;
+            box-shadow: inset 0 0 0 1px rgba(23, 96, 135, 0.08);
+        }
+
+        .timeline-segment {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0.35rem;
+            font-size: 0.72rem;
+            font-weight: 700;
+            line-height: 1.25;
+            color: #fff;
+        }
+
+        .seg-design { width: 14%; background: #174d6b; }
+        .seg-proto { width: 22%; background: #1d6d93; }
+        .seg-beta { width: 14%; background: #2f88b0; }
+        .seg-pilot { width: 12%; background: #52a3c6; }
+        .seg-prod { width: 12%; background: #79bad6; color: var(--ink); }
+        .seg-train { width: 12%; background: #a5d2e6; color: var(--ink); }
+        .seg-ops { width: 14%; background: #d5edf7; color: var(--ink); }
+
+        .timeline-scale {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.45rem;
+            margin-top: 0.75rem;
+        }
+
+        .timeline-node {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 0.55rem;
+            font-size: 0.76rem;
+            box-shadow: 0 6px 16px rgba(15, 46, 66, 0.05);
+        }
+
+        .timeline-node strong {
+            display: block;
+            color: var(--accent-strong);
+            margin-bottom: 0.2rem;
+        }
+
+        .architecture-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.85rem;
+            align-items: start;
+            margin: 0.8rem 0 1rem;
+        }
+
+        .arch-layer {
+            background: #fff;
+            border-radius: 16px;
+            padding: 0.95rem 0.9rem;
+            border-top: 6px solid var(--accent);
+            box-shadow: var(--shadow);
+            min-height: 100%;
+        }
+
+        .arch-users { border-top-color: #174d6b; }
+        .arch-capture { border-top-color: #1d6d93; }
+        .arch-core { border-top-color: #2f88b0; }
+        .arch-integration { border-top-color: #76b5d3; }
+        .arch-output { border-top-color: #a8d5e8; }
+
+        .arch-title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+            color: var(--ink);
+        }
+
+        .arch-subtitle {
+            font-size: 0.8rem;
+            color: var(--ink-soft);
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+        }
+
+        .arch-box {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 0.7rem 0.75rem;
+            margin-bottom: 0.7rem;
+            background: linear-gradient(180deg, #ffffff, #fbfdff);
+        }
+
+        .arch-box h4 {
+            margin: 0 0 0.35rem;
+        }
+
+        .arch-tag {
+            display: inline-block;
+            padding: 0.18rem 0.58rem;
+            border-radius: 999px;
+            font-size: 0.68rem;
+            font-weight: 700;
+            margin-bottom: 0.45rem;
+            color: #fff;
+            background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+        }
+
+        .arch-flow {
+            background: linear-gradient(180deg, var(--accent-glow), #ffffff);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1rem 1.05rem;
+            box-shadow: var(--shadow);
+        }
+
+        .arch-flow-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .arch-step {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 0.85rem 0.65rem;
+            text-align: center;
+            font-size: 0.76rem;
+            font-weight: 700;
+            line-height: 1.35;
+            box-shadow: 0 6px 16px rgba(15, 46, 66, 0.05);
+            min-height: 84px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .arch-arrow {
+            text-align: center;
+            color: var(--accent);
+            font-size: 1.35rem;
+            font-weight: 700;
+        }
+
+        @media (max-width: 1200px) {
+            .architecture-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .arch-flow-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .arch-arrow {
+                transform: rotate(90deg);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .architecture-grid,
+            .timeline-scale {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -203,6 +443,18 @@
     <span><strong>Issue Date:</strong> 10 March 2026</span>
     <span><strong>Submitted to:</strong> Inspired Global Systems Ltd</span>
     <span><strong>Submitted by:</strong> Inspired Delta Ltd</span>
+</div>
+
+<div class="hero">
+    <h2>Delivery Strategy Snapshot</h2>
+    <p>FEVA is positioned as a field-first implementation platform: a Flutter Android app for offline enumeration and verification, supported by a Python/Frappe backend for QA/QC, exports, dashboards, and geospatial processing inside IGSL-owned repositories and infrastructure.</p>
+    <p>The proposal is structured to emphasize fast delivery, field usability, geospatial compliance, and operational control through Month 8 closeout.</p>
+    <div class="hero-meta">
+        <span class="hero-chip">Flutter Android App</span>
+        <span class="hero-chip">Python / Frappe Backend</span>
+        <span class="hero-chip">Shapefile + GIS Integration</span>
+        <span class="hero-chip">Week 6 Production Release</span>
+    </div>
 </div>
 
 <div class="toc">
@@ -304,6 +556,136 @@
         </tr>
     </tbody>
 </table>
+
+<h3>System Architecture Design</h3>
+<div class="architecture-grid">
+    <div class="arch-layer arch-users">
+        <div class="arch-title">1. User Layer</div>
+        <div class="arch-subtitle">Primary actors interacting with FEVA in the field and in supervisory operations.</div>
+        <div class="arch-box">
+            <span class="arch-tag">FIELD USERS</span>
+            <h4>Enumerators</h4>
+            <ul class="muted">
+                <li>Capture street and building data</li>
+                <li>Take geotagged photos and GPS points</li>
+                <li>Operate in offline and low-connectivity conditions</li>
+            </ul>
+        </div>
+        <div class="arch-box">
+            <span class="arch-tag">SUPERVISION</span>
+            <h4>Supervisors & Admin</h4>
+            <ul class="muted">
+                <li>Review, validate, and spot-check records</li>
+                <li>Monitor field productivity and quality</li>
+                <li>Escalate exceptions and manage delivery outputs</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="arch-layer arch-capture">
+        <div class="arch-title">2. Mobile Capture Layer</div>
+        <div class="arch-subtitle">Flutter Android application for on-device capture, validation, and sync.</div>
+        <div class="arch-box">
+            <span class="arch-tag">FLUTTER APP</span>
+            <h4>Field Capture Client</h4>
+            <ul class="muted">
+                <li>Street and building forms</li>
+                <li>Offline SQLite storage and sync queue</li>
+                <li>Device GPS, photos, and local validation</li>
+            </ul>
+        </div>
+        <div class="arch-box">
+            <span class="arch-tag">OFFLINE DATA</span>
+            <h4>Boundary & Reference Data</h4>
+            <ul class="muted">
+                <li>Preloaded State shapefile-derived layers</li>
+                <li>Offline LGA, ward, and zone checks</li>
+                <li>Remote-update dropdown and form metadata</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="arch-layer arch-core">
+        <div class="arch-title">3. Core Platform Layer</div>
+        <div class="arch-subtitle">Python/Frappe services for APIs, workflows, dashboards, and project controls.</div>
+        <div class="arch-box">
+            <span class="arch-tag">BACKEND API</span>
+            <h4>FEVA Service Core</h4>
+            <ul class="muted">
+                <li>Authentication, sync, and review APIs</li>
+                <li>Project dashboards and QA/QC workflows</li>
+                <li>Monthly export and closeout delivery logic</li>
+            </ul>
+        </div>
+        <div class="arch-box">
+            <span class="arch-tag">DATA STORE</span>
+            <h4>Project Database</h4>
+            <ul class="muted">
+                <li>PostgreSQL/PostGIS on IGSL infrastructure</li>
+                <li>Street, building, media, and audit records</li>
+                <li>Spatial validation and duplicate-detection support</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="arch-layer arch-integration">
+        <div class="arch-title">4. Integration Layer</div>
+        <div class="arch-subtitle">Geospatial and infrastructure services connected into FEVA.</div>
+        <div class="arch-box">
+            <span class="arch-tag">GIS</span>
+            <h4>Shapefile & State GIS</h4>
+            <ul class="muted">
+                <li>Boundary ingestion into PostGIS</li>
+                <li>WMS/WFS/REST connectivity when online</li>
+                <li>CRS normalization and spatial packaging</li>
+            </ul>
+        </div>
+        <div class="arch-box">
+            <span class="arch-tag">MEDIA</span>
+            <h4>Storage & Delivery Services</h4>
+            <ul class="muted">
+                <li>Photo storage on IGSL object storage</li>
+                <li>Export packaging for GeoJSON, Shapefile, and media folders</li>
+                <li>Repository-controlled scripts and documentation</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="arch-layer arch-output">
+        <div class="arch-title">5. Output & Oversight Layer</div>
+        <div class="arch-subtitle">Monitoring, reporting, and delivery outputs required by IGSL.</div>
+        <div class="arch-box">
+            <span class="arch-tag">QA/QC</span>
+            <h4>Quality & Governance</h4>
+            <ul class="muted">
+                <li>Coverage metrics, duplicate checks, and flagged-record review</li>
+                <li>Supervisor dashboards and audit visibility</li>
+            </ul>
+        </div>
+        <div class="arch-box">
+            <span class="arch-tag">EXPORTS</span>
+            <h4>Delivery Outputs</h4>
+            <ul class="muted">
+                <li>Monthly data deliveries to IGSL</li>
+                <li>Final certified dataset and closeout package</li>
+                <li>GIS integration specification and data dictionary</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="arch-flow">
+    <div class="card-header">End-to-End Process Flow</div>
+    <div class="arch-flow-grid">
+        <div class="arch-step">State Boundaries and Reference Layers Prepared</div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-step">Enumerators Capture Data Offline in Flutter App</div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-step">Records Sync to Python/Frappe Backend and PostGIS</div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-step">Supervisor QA/QC, Dashboards, and Monthly Delivery Outputs</div>
+    </div>
+</div>
 
 <h2 id="section-c">Section C: Geospatial Integration, Functional Scope & Delivery Model</h2>
 <table>
@@ -449,6 +831,28 @@
 </table>
 
 <h2 id="section-d" class="page-break">Section D: Project Plan & Timeline</h2>
+<div class="timeline-visual">
+    <div class="card-header">Programme Timeline Graph</div>
+    <p class="muted">Visual summary of the phased FEVA delivery plan from design through production release and operational support.</p>
+    <div class="timeline-track">
+        <div class="timeline-segment seg-design">Week 1<br>Design</div>
+        <div class="timeline-segment seg-proto">Weeks 2-3<br>Prototype</div>
+        <div class="timeline-segment seg-beta">Week 4<br>Beta</div>
+        <div class="timeline-segment seg-pilot">Week 5<br>Pilot</div>
+        <div class="timeline-segment seg-prod">Week 6<br>Production</div>
+        <div class="timeline-segment seg-train">Week 7<br>Training</div>
+        <div class="timeline-segment seg-ops">Months 2-8<br>Ops / Delivery</div>
+    </div>
+    <div class="timeline-scale">
+        <div class="timeline-node"><strong>Week 1</strong>UI/UX, workflows, schema, shapefile design.</div>
+        <div class="timeline-node"><strong>Weeks 2-3</strong>Core capture, GPS, media, offline storage, sync foundation.</div>
+        <div class="timeline-node"><strong>Week 4</strong>Beta with QA/QC and GIS connectivity layer.</div>
+        <div class="timeline-node"><strong>Week 5</strong>2-LGA pilot, UAT findings, remediation.</div>
+        <div class="timeline-node"><strong>Week 6</strong>Production deployment to IGSL environment.</div>
+        <div class="timeline-node"><strong>Week 7</strong>Minimum 50 enumerators and supervisors trained.</div>
+        <div class="timeline-node"><strong>Month 8</strong>Final certified dataset and closeout package.</div>
+    </div>
+</div>
 <table>
     <thead>
         <tr>
