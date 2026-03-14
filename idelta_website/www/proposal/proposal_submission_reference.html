@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposal Submission Reference - AIPMS and FEVA</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --ink: #173142;
+            --ink-soft: #486474;
+            --accent: #1e668d;
+            --accent-soft: #e6f2f8;
+            --surface: #f8fbfd;
+            --border: #cadbe6;
+            --ok: #1f6c45;
+            --warn: #8a6112;
+            --risk: #9f2f2f;
+            --shadow: 0 12px 28px rgba(15, 46, 66, 0.08);
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            color: var(--ink);
+            background:
+                radial-gradient(circle at top right, #eef8fd 0, #eef8fd 20%, transparent 21%),
+                linear-gradient(180deg, #f9fcfe 0%, #ffffff 18%);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0.45in 0.35in;
+            line-height: 1.45;
+        }
+
+        body.locked {
+            display: none;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 0.35rem;
+            padding-left: 1rem;
+            border-left: 6px solid var(--accent);
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            margin: 1.35rem 0 0.8rem;
+            color: var(--ink-soft);
+            border-bottom: 2px solid var(--accent-soft);
+            padding-bottom: 0.2rem;
+        }
+
+        h3 {
+            font-size: 1.05rem;
+            margin: 1rem 0 0.55rem;
+            color: var(--ink-soft);
+        }
+
+        p {
+            margin-bottom: 0.7rem;
+        }
+
+        ul {
+            padding-left: 1.3rem;
+            margin: 0.4rem 0 0.8rem;
+        }
+
+        li {
+            margin-bottom: 0.3rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0.8rem 0 1.2rem;
+            font-size: 0.85rem;
+        }
+
+        th {
+            background: #e8f2f8;
+            text-align: left;
+            padding: 0.65rem 0.75rem;
+            border: 1px solid var(--border);
+        }
+
+        td {
+            padding: 0.6rem 0.75rem;
+            border: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        tr:nth-child(even) {
+            background: #fbfdff;
+        }
+
+        .hero,
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .hero {
+            padding: 1.2rem 1.25rem;
+            background:
+                linear-gradient(135deg, rgba(30, 102, 141, 0.96), rgba(19, 74, 102, 0.95)),
+                linear-gradient(180deg, #256e94, #17475f);
+            color: #fff;
+            margin: 1rem 0 1.2rem;
+        }
+
+        .hero h2 {
+            color: #fff;
+            border-bottom: none;
+            margin: 0 0 0.45rem;
+            padding: 0;
+        }
+
+        .hero p {
+            margin-bottom: 0.45rem;
+            max-width: 940px;
+        }
+
+        .meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.55rem;
+            margin-top: 0.7rem;
+        }
+
+        .chip {
+            display: inline-block;
+            padding: 0.26rem 0.7rem;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            font-size: 0.76rem;
+            font-weight: 700;
+        }
+
+        .card {
+            padding: 1rem 1.05rem;
+            margin-bottom: 1rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1rem;
+        }
+
+        .status-ok {
+            color: var(--ok);
+            font-weight: 700;
+        }
+
+        .status-warn {
+            color: var(--warn);
+            font-weight: 700;
+        }
+
+        .status-risk {
+            color: var(--risk);
+            font-weight: 700;
+        }
+
+        .muted {
+            color: #5e7989;
+            font-size: 0.8rem;
+        }
+
+        @media print {
+            body {
+                padding: 0.25in;
+            }
+
+            .card,
+            .hero,
+            table {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+    <script>
+        (function () {
+            var STORAGE_KEY = "proposal_access_granted";
+            var PASSCODE = "proposal2026";
+
+            function unlockPage() {
+                document.addEventListener("DOMContentLoaded", function () {
+                    document.body.classList.remove("locked");
+                });
+            }
+
+            try {
+                if (sessionStorage.getItem(STORAGE_KEY) === "yes") {
+                    unlockPage();
+                    return;
+                }
+            } catch (error) {}
+
+            var granted = false;
+            for (var attempt = 0; attempt < 3; attempt++) {
+                var input = window.prompt("Enter proposal access password:");
+                if (input === PASSCODE) {
+                    granted = true;
+                    try {
+                        sessionStorage.setItem(STORAGE_KEY, "yes");
+                    } catch (error) {}
+                    break;
+                }
+                if (input === null) {
+                    break;
+                }
+                window.alert("Incorrect password.");
+            }
+
+            if (granted) {
+                unlockPage();
+                return;
+            }
+
+            document.addEventListener("DOMContentLoaded", function () {
+                document.body.innerHTML = '<div style="max-width:720px;margin:80px auto;padding:24px;font-family:Segoe UI,Arial,sans-serif;border:1px solid #cadbe6;border-radius:16px;background:#f8fbfd;color:#173142;box-shadow:0 12px 28px rgba(15,46,66,0.08);"><h1 style="font-size:28px;margin-bottom:12px;">Protected Page</h1><p style="margin:0;">Access was not granted. Refresh the page to try again.</p></div>';
+                document.body.classList.remove("locked");
+            });
+        })();
+    </script>
+</head>
+<body class="locked">
+
+<h1>Proposal Submission Reference</h1>
+<p>Reference checklist and gap-closure guide for the AIPMS and FEVA proposal packages.</p>
+
+<div class="hero">
+    <h2>Purpose</h2>
+    <p>This file is a working reference, not part of the bid itself. It tracks what is already strong in each proposal, what still needs to be supplied before submission, and which items should be handled as appendices instead of inflating the main proposal narrative.</p>
+    <div class="meta">
+        <span class="chip">AIPMS Checklist</span>
+        <span class="chip">FEVA Checklist</span>
+        <span class="chip">Submission Readiness</span>
+        <span class="chip">Appendix Planning</span>
+    </div>
+</div>
+
+<h2>Overall Position</h2>
+<div class="grid-2">
+    <div class="card">
+        <h3>AIPMS</h3>
+        <ul>
+            <li>Main structure is strong and reads like a proper procurement response.</li>
+            <li>Technical approach, timeline, commercial structure, and architecture are now credible.</li>
+            <li>Biggest remaining item is the detailed compliance pack and real submission data.</li>
+        </ul>
+    </div>
+    <div class="card">
+        <h3>FEVA</h3>
+        <ul>
+            <li>Main structure is aligned to the RFP and the stack choice is now defensible.</li>
+            <li>Flutter plus Python/Frappe backend is a better fit than the earlier PWA framing.</li>
+            <li>Biggest remaining item is completion of supporting evidence and a few explicit operational commitments.</li>
+        </ul>
+    </div>
+</div>
+
+<h2>AIPMS Gap Closure Checklist</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Area</th>
+            <th>Status</th>
+            <th>Action Needed</th>
+            <th>Recommended Location</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Company legal details</td>
+            <td class="status-warn">Pending</td>
+            <td>Insert registered address, CAC number, and final bid contact details.</td>
+            <td>Main proposal Section B</td>
+        </tr>
+        <tr>
+            <td>Client references</td>
+            <td class="status-warn">Pending</td>
+            <td>Add three complete references with scope, approximate value, go-live date, and verification contact.</td>
+            <td>Section B plus appendix</td>
+        </tr>
+        <tr>
+            <td>Annex A compliance matrix</td>
+            <td class="status-risk">Critical</td>
+            <td>Prepare the detailed line-by-line response against AIPMS-FRS-001 v2.0.</td>
+            <td>Separate appendix / annex</td>
+        </tr>
+        <tr>
+            <td>Key personnel CVs</td>
+            <td class="status-warn">Pending</td>
+            <td>Attach CVs for all named personnel, especially PM, architect, developer, QA, HR specialist, and DevOps lead.</td>
+            <td>Appendix</td>
+        </tr>
+        <tr>
+            <td>Named HR and DevOps leads</td>
+            <td class="status-warn">Pending</td>
+            <td>Replace placeholders with actual names.</td>
+            <td>Main proposal Section D</td>
+        </tr>
+        <tr>
+            <td>Commercial approval</td>
+            <td class="status-warn">Pending</td>
+            <td>Confirm all NGN values, VAT treatment, and whether any optional items should be repriced.</td>
+            <td>Section E</td>
+        </tr>
+        <tr>
+            <td>Hosting / data residency declaration</td>
+            <td class="status-warn">Pending</td>
+            <td>State final hosting jurisdiction and data residency position.</td>
+            <td>Section C / commercial schedule</td>
+        </tr>
+        <tr>
+            <td>Submission assumptions</td>
+            <td class="status-ok">Recommended</td>
+            <td>Add a short assumptions note covering timely parameter access, sample data, approvals, and stakeholder availability.</td>
+            <td>Appendix or brief note in Section D</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>AIPMS Appendix Plan</h3>
+<ul>
+    <li>Appendix 1: Company registration and statutory documents.</li>
+    <li>Appendix 2: Detailed AIPMS compliance matrix.</li>
+    <li>Appendix 3: CVs of key personnel.</li>
+    <li>Appendix 4: Client reference sheets.</li>
+    <li>Appendix 5: Hosting and security note.</li>
+</ul>
+
+<h2>FEVA Gap Closure Checklist</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Area</th>
+            <th>Status</th>
+            <th>Action Needed</th>
+            <th>Recommended Location</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Company legal / statutory pack</td>
+            <td class="status-risk">Critical</td>
+            <td>Attach CAC certificate, tax clearance, and signed conflict of interest declaration.</td>
+            <td>Compliance appendix</td>
+        </tr>
+        <tr>
+            <td>Relevant references</td>
+            <td class="status-risk">Critical</td>
+            <td>Add at least three mobile, GIS, field-data, or spatial project references.</td>
+            <td>Technical appendix</td>
+        </tr>
+        <tr>
+            <td>Named GIS specialist and trainer</td>
+            <td class="status-warn">Pending</td>
+            <td>Replace placeholders with named resources and CVs.</td>
+            <td>Main proposal team section + appendix</td>
+        </tr>
+        <tr>
+            <td>Operational performance commitments</td>
+            <td class="status-warn">Pending</td>
+            <td>State explicit support for 200+ enumerators, offline capacity, sync speed, and device/battery expectations.</td>
+            <td>Technical appendix or Section B/C note</td>
+        </tr>
+        <tr>
+            <td>Performance bond acknowledgement</td>
+            <td class="status-warn">Pending</td>
+            <td>Add statement acknowledging the 10% performance bond requirement.</td>
+            <td>Commercial or compliance note</td>
+        </tr>
+        <tr>
+            <td>Commercial approval</td>
+            <td class="status-warn">Pending</td>
+            <td>Confirm fixed-price breakdown, monthly support figure, and whether contingency should remain visible.</td>
+            <td>Section E</td>
+        </tr>
+        <tr>
+            <td>Separate submission PDFs</td>
+            <td class="status-risk">Critical</td>
+            <td>Prepare separate Technical and Commercial PDFs because the FEVA RFP requires separate attachments.</td>
+            <td>Submission package, not the main draft</td>
+        </tr>
+        <tr>
+            <td>IGSL GitHub / delivery assumptions</td>
+            <td class="status-ok">Recommended</td>
+            <td>Add a short assumption note covering repo access, credentials, shapefile availability, and GIS interface readiness.</td>
+            <td>Appendix or technical note</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>FEVA Appendix Plan</h3>
+<ul>
+    <li>Appendix 1: Company legal and statutory documents.</li>
+    <li>Appendix 2: Key personnel CVs including GIS specialist and trainer.</li>
+    <li>Appendix 3: Relevant mobile/GIS/spatial case studies and references.</li>
+    <li>Appendix 4: Technical compliance sheet covering offline, GPS, sync, and concurrency targets.</li>
+    <li>Appendix 5: Development environment and IGSL repository working assumptions.</li>
+</ul>
+
+<h2>What Not to Add</h2>
+<div class="card">
+    <ul>
+        <li>Do not bulk up the main proposal with repeated marketing language.</li>
+        <li>Do not repeat the same technical point in multiple sections just to make the document longer.</li>
+        <li>Do not bury critical evidence inside long narrative blocks; use appendices and clearly-labelled tables.</li>
+        <li>Do not leave placeholders in any final submission copy.</li>
+    </ul>
+</div>
+
+<h2>Questions to Resolve Before Submission</h2>
+<div class="card">
+    <p>These are the main decision questions that still affect pricing, staffing, schedule credibility, or proposal positioning. They should be resolved before the final PDFs are issued.</p>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Question</th>
+            <th>Why It Matters</th>
+            <th>Affects</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Are AIPMS and FEVA expected to run concurrently if both are awarded?</td>
+            <td>Concurrent delivery changes staffing commitments, timeline credibility, and whether the same named resources can appear in both bids without raising delivery risk.</td>
+            <td>Both proposals, team section, delivery plan, commercials</td>
+        </tr>
+        <tr>
+            <td>Will the project teams work primarily from the State, from Abuja, or in a mixed delivery model?</td>
+            <td>Location assumptions affect travel, logistics, field support, hypercare, and how strong the “local presence” claim can be made.</td>
+            <td>Both proposals, pricing, support plan</td>
+        </tr>
+        <tr>
+            <td>Do we already have a named in-State partner or local operational contact?</td>
+            <td>If yes, that can strengthen implementation confidence. If no, the proposal should avoid overstating in-State operational coverage.</td>
+            <td>Main narrative, references, support model</td>
+        </tr>
+        <tr>
+            <td>Are the same core personnel genuinely available for both projects over the same period?</td>
+            <td>This affects whether one shared team can be named across both submissions or whether each bid needs more differentiated staffing.</td>
+            <td>Team tables, CV appendix, delivery credibility</td>
+        </tr>
+        <tr>
+            <td>For FEVA, who is the named GIS specialist and do we have a CV ready?</td>
+            <td>The RFP explicitly values GIS capability. Leaving that role weak or vague will hurt scoring.</td>
+            <td>FEVA technical score, appendix pack</td>
+        </tr>
+        <tr>
+            <td>For AIPMS, who are the named HR specialist and DevOps / hosting lead?</td>
+            <td>Those placeholders need to be closed before submission, especially because payroll and hosting are central to the AIPMS scope.</td>
+            <td>AIPMS team section, appendix pack</td>
+        </tr>
+        <tr>
+            <td>Do we want to keep the aggressive accelerated timelines, or soften them to match the RFP maximum timetable?</td>
+            <td>A faster timeline is attractive, but only if the team and assumptions support it. Otherwise it can create unnecessary delivery risk.</td>
+            <td>Executive summary, timeline section, commercial risk</td>
+        </tr>
+        <tr>
+            <td>Are the NGN commercial estimates intended as real bid prices or just planning placeholders?</td>
+            <td>If they are still internal estimates, they should be reviewed before submission so the bid does not lock us into underpriced delivery.</td>
+            <td>Section E in both proposals</td>
+        </tr>
+        <tr>
+            <td>For FEVA, do we want to price optional devices as excluded, included, or separately available on request?</td>
+            <td>The current draft leaves device supply out. That is fine if deliberate, but it should be an explicit commercial choice.</td>
+            <td>FEVA commercial proposal</td>
+        </tr>
+        <tr>
+            <td>Do we have usable client references that specifically match government, GIS, mobile fieldwork, or ERP programme control?</td>
+            <td>Generic references are weaker. Better-matched references can materially improve scoring and evaluator confidence.</td>
+            <td>Both proposals, appendices</td>
+        </tr>
+        <tr>
+            <td>Do we have the legal and statutory documents ready in final form?</td>
+            <td>These are often treated as basic compliance gates. A good proposal can still fail if the statutory pack is incomplete.</td>
+            <td>Final submission pack</td>
+        </tr>
+        <tr>
+            <td>Should we state our working assumptions explicitly in each proposal?</td>
+            <td>This protects us from overcommitting where delivery depends on IGSL access, sample data, approvals, shapefiles, or stakeholder responsiveness.</td>
+            <td>Both proposals, risk management</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>Suggested Internal Clarification Prompts</h3>
+<ul>
+    <li>“If both projects land, what exact team do we have available from Week 1 to Week 8?”</li>
+    <li>“Are we budgeting for travel from Abuja only, or sustained in-State presence?”</li>
+    <li>“Which roles are permanent staff and which are partner or contract resources?”</li>
+    <li>“Which figures in the current commercial sections are already approved and which are still placeholders in disguise?”</li>
+    <li>“Which three references are strongest for AIPMS, and which three are strongest for FEVA?”</li>
+</ul>
+
+<h2>Decision Matrix</h2>
+<div class="card">
+    <p>Use this table to assign ownership, capture decisions, and keep the proposal closeout moving. The “Decision” column can be updated as choices are made, and the “Deadline” column should reflect the latest practical internal cut-off before final PDF generation.</p>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Decision Item</th>
+            <th>Owner</th>
+            <th>Decision</th>
+            <th>Deadline</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Will AIPMS and FEVA be staffed as concurrent projects if both are awarded?</td>
+            <td>[Owner]</td>
+            <td>[Pending / Decide]</td>
+            <td>[Date]</td>
+        </tr>
+        <tr>
+            <td>Will delivery be Abuja-based, in-State, or mixed?</td>
+            <td>[Owner]</td>
+            <td>[Pending / Decide]</td>
+            <td>[Date]</td>
+        </tr>
+        <tr>
+            <td>Confirm final named team members for both proposals, including specialists.</td>
+            <td>[Owner]</td>
+            <td>[Pending / Decide]</td>
+            <td>[Date]</td>
+        </tr>
+        <tr>
+            <td>Confirm whether accelerated timelines remain or are softened to the RFP maximum.</td>
+            <td>[Owner]</td>
+            <td>[Pending / Decide]</td>
+            <td>[Date]</td>
+        </tr>
+        <tr>
+            <td>Approve final commercial figures for AIPMS.</td>
+            <td>[Owner]</td>
+            <td>[Pending / Decide]</td>
+            <td>[Date]</td>
+        </tr>
+        <tr>
+            <td>Approve final commercial figures for FEVA.</td>
+            <td>[Owner]</td>
+            <td>[Pending / Decide]</td>
+            <td>[Date]</td>
+        </tr>
+        <tr>
+            <td>Confirm whether FEVA devices are excluded, included, or separately quoted.</td>
+            <td>[Owner]</td>
+            <td>[Pending / Decide]</td>
+            <td>[Date]</td>
+        </tr>
+        <tr>
+            <td>Select and validate final client references for AIPMS.</td>
+            <td>[Owner]</td>
+            <td>[Pending / Decide]</td>
+            <td>[Date]</td>
+        </tr>
+        <tr>
+            <td>Select and validate final client references for FEVA.</td>
+            <td>[Owner]</td>
+            <td>[Pending / Decide]</td>
+            <td>[Date]</td>
+        </tr>
+        <tr>
+            <td>Confirm legal/statutory document pack is complete and current.</td>
+            <td>[Owner]</td>
+            <td>[Pending / Decide]</td>
+            <td>[Date]</td>
+        </tr>
+        <tr>
+            <td>Decide whether assumptions notes will be included in the final proposals.</td>
+            <td>[Owner]</td>
+            <td>[Pending / Decide]</td>
+            <td>[Date]</td>
+        </tr>
+        <tr>
+            <td>Confirm FEVA technical and commercial proposals will be split into separate PDFs.</td>
+            <td>[Owner]</td>
+            <td>[Pending / Decide]</td>
+            <td>[Date]</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>Recommended Final Packaging</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Proposal</th>
+            <th>Main Document</th>
+            <th>Supporting Pack</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>AIPMS</td>
+            <td>Single polished proposal PDF with embedded structure, visuals, and commercial section.</td>
+            <td>Annex compliance matrix, CVs, legal docs, client references, hosting/security note.</td>
+        </tr>
+        <tr>
+            <td>FEVA</td>
+            <td>Technical Proposal PDF and separate Commercial Proposal PDF, as required by the RFP.</td>
+            <td>Legal docs, references, CVs, compliance sheet, delivery assumptions, declarations.</td>
+        </tr>
+    </tbody>
+</table>
+
+<p class="muted">This reference file is intended for internal working use while finalising the submission package.</p>
+
+</body>
+</html>

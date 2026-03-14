@@ -37,6 +37,10 @@
             line-height: 1.45;
         }
 
+        body.locked {
+            display: none;
+        }
+
         @media print {
             body {
                 padding: 0.25in;
@@ -201,6 +205,37 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
             gap: 0.8rem;
+        }
+
+        .gallery-4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 0.9rem;
+            margin: 0.9rem 0 1.15rem;
+        }
+
+        .shot-card {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 0.7rem;
+            box-shadow: var(--shadow);
+        }
+
+        .shot-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 10px;
+            border: 1px solid #d8e6ef;
+            background: #fff;
+        }
+
+        .shot-card .caption {
+            font-size: 0.76rem;
+            color: var(--ink-soft);
+            margin-top: 0.45rem;
+            line-height: 1.35;
         }
 
         .pill {
@@ -502,8 +537,53 @@
             }
         }
     </style>
+    <script>
+        (function () {
+            var STORAGE_KEY = "proposal_access_granted";
+            var PASSCODE = "proposal2026";
+
+            function unlockPage() {
+                document.addEventListener("DOMContentLoaded", function () {
+                    document.body.classList.remove("locked");
+                });
+            }
+
+            try {
+                if (sessionStorage.getItem(STORAGE_KEY) === "yes") {
+                    unlockPage();
+                    return;
+                }
+            } catch (error) {}
+
+            var granted = false;
+            for (var attempt = 0; attempt < 3; attempt++) {
+                var input = window.prompt("Enter proposal access password:");
+                if (input === PASSCODE) {
+                    granted = true;
+                    try {
+                        sessionStorage.setItem(STORAGE_KEY, "yes");
+                    } catch (error) {}
+                    break;
+                }
+                if (input === null) {
+                    break;
+                }
+                window.alert("Incorrect password.");
+            }
+
+            if (granted) {
+                unlockPage();
+                return;
+            }
+
+            document.addEventListener("DOMContentLoaded", function () {
+                document.body.innerHTML = '<div style="max-width:720px;margin:80px auto;padding:24px;font-family:Segoe UI,Arial,sans-serif;border:1px solid #cadbe6;border-radius:16px;background:#f8fbfd;color:#173142;box-shadow:0 12px 28px rgba(15,46,66,0.08);"><h1 style="font-size:28px;margin-bottom:12px;">Protected Page</h1><p style="margin:0;">Access was not granted. Refresh the page to try again.</p></div>';
+                document.body.classList.remove("locked");
+            });
+        })();
+    </script>
 </head>
-<body>
+<body class="locked">
 
 <h1>AIPMS Proposal - Addressing Infrastructure Programme Management System</h1>
 <div class="header-sub">
@@ -632,13 +712,206 @@
 
 <h2 id="section-c">Section C: Technical Approach</h2>
 <div class="card">
+    <div class="card-header">Section 7 Proposal Requirement Coverage</div>
+    <p>This section is structured to respond directly to the RFP proposal requirements for technical submission. Inspired Delta Ltd therefore addresses: the proposed platform and implementation model; module-by-module compliance against the seven AIPMS-FRS-001 v2.0 modules; the Configuration Panel approach; the HR module approach; the FDT integration approach; hosting, infrastructure, security, backup, and recovery; and the offline or low-connectivity operating model required for designated field activities.</p>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Section 7 Requirement</th>
+            <th>Response in this Proposal</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Proposed platform approach with justification</td>
+            <td>Covered under <strong>Proposed Delivery Model</strong> and <strong>Why ERPNext Enables a Lite Version by Week 2</strong>, setting out the hybrid ERPNext/Frappe approach and the justification for a configuration-led accelerated release.</td>
+        </tr>
+        <tr>
+            <td>Module-by-module compliance against the seven AIPMS-FRS-001 v2.0 modules</td>
+            <td>Covered under <strong>Compliance Summary by Module</strong> and <strong>Detailed Module Delivery Notes</strong>, stating the delivery method for each module and how Mandatory and High-priority requirements will be addressed in scope.</td>
+        </tr>
+        <tr>
+            <td>Configuration Panel approach</td>
+            <td>Covered under <strong>Configuration Panel Design</strong>, describing how Tier 1 users will maintain programme and financial parameters without direct code changes.</td>
+        </tr>
+        <tr>
+            <td>HR module detailed approach</td>
+            <td>Covered under <strong>Detailed Module Delivery Notes</strong>, <strong>HR Module Delivery Approach</strong>, and the security and access-control sections, including payroll rules, statutory deductions, bulk onboarding, attendance, and restricted payroll data visibility.</td>
+        </tr>
+        <tr>
+            <td>FDT integration detailed approach</td>
+            <td>Covered under <strong>FDT Integration Delivery Approach</strong> and the technical requirements mapping, including CSV import, validation, duplicate checks, batch logging, discrepancy handling, and optional API extension.</td>
+        </tr>
+        <tr>
+            <td>System architecture, hosting, security, backup, and recovery</td>
+            <td>Covered under <strong>Technical Requirements Mapping</strong>, <strong>Recommended Hosting and Recovery Approach</strong>, and <strong>Architecture, HR, and Data Control Notes</strong>.</td>
+        </tr>
+        <tr>
+            <td>Offline capability / low-connectivity operating model</td>
+            <td>Covered under <strong>Offline &amp; Mobile</strong>, which defines the low-connectivity operating position for designated HR field activities and the sync model after reconnection.</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="card">
     <div class="card-header">Proposed Delivery Model</div>
     <p>Inspired Delta Ltd proposes a hybrid AIPMS implementation: ERPNext provides the base platform for projects, workflows, documents, procurement, HR, payroll, and reporting; custom Frappe components provide the AIPMS-specific Configuration Panel, payment certification workflows, FDT ingestion, additional dashboards, and field-level governance controls. This is the fastest route to operational readiness while preserving flexibility for future programme changes.</p>
+</div>
+
+<h3>Why ERPNext Enables a Lite Version by Week 2</h3>
+<div class="card">
+    <p>The credibility of the proposed Lite Version depends on whether the underlying platform already contains the core behaviours required for programme commencement. ERPNext makes the Week 2 Lite target realistic because the first release is not a greenfield software build; it is a controlled configuration of mature modules already capable of handling records, workflows, approvals, documents, notifications, dashboards, and role-based permissions.</p>
+    <p>For AIPMS, the Lite Version is deliberately focused on Modules 1-5 at core operational level. That means the goal in Weeks 1-2 is not to finish every advanced automation, but to stand up the minimum live controls the programme needs to begin safely: milestone tracking, contract register, claim workflow, document repository, governance records, and baseline RBAC.</p>
+    <p>ERPNext accelerates this because it already provides the structural building blocks we would otherwise spend weeks writing from scratch: workflow engine, role model, document attachments, print formats, notification rules, list and form views, report framework, and audit-oriented transactional records. Our work in the Lite phase is therefore largely configuration, field design, print/output setup, and approval-path alignment rather than low-level application engineering.</p>
+    <p>That distinction matters in procurement terms. We are not proposing to use ERPNext as a generic label; we are proposing to use it as a delivery accelerator. The platform already gives us the object model, user administration, workflow states, dashboard widgets, report engine, email alerts, attachment controls, comment trail, and permission system needed to launch an operational first release. Because those foundations already exist, the early project effort can focus on configuring AIPMS-specific behaviour rather than constructing commodity platform features.</p>
+    <p>In practical terms, this means the Week 2 release is credible because the work sequence is front-loaded around setup activities that ERPNext handles well: defining master data, mapping roles, creating the required DocTypes and fields, configuring workflows, applying print formats, loading reference records, and exposing operational views for programme teams. More complex items such as deep validation rules, advanced payment logic, richer FDT reconciliation, or highly tailored analytics can then be layered in during the subsequent sprints without blocking early programme commencement.</p>
+</div>
+
+<div class="card">
+    <div class="card-header">How ERPNext Shortens the Lite Release Path</div>
+    <p>ERPNext is especially suitable for accelerated government and programme delivery where a controlled operational release is required before every enhancement is complete. Its architecture allows us to work in layers: first establish master data, transactions, approvals, and reporting; then add specialised programme controls once live operations have started. This supports the exact AIPMS requirement of making Modules 1-5 usable early while still progressing toward a more fully tuned production platform.</p>
+    <p>For AIPMS, the Lite Version will be assembled using a mix of standard ERPNext capability and focused Frappe extensions. Standard capability covers the operating spine of the system: users, roles, lists, forms, workflow states, document attachment, assignments, notifications, activity trails, and structured reports. Focused extension work is then reserved for the areas where the RFP is genuinely programme-specific, such as the Configuration Panel, selective approval paths, certificate generation, controlled import of FDT outputs, and executive reporting views.</p>
+    <p>This approach is lower risk than a fully bespoke build in the same timeframe. A bespoke application would still be spending the first two weeks creating basic scaffolding such as authentication, form behaviour, approvals, document storage, audit trails, and report structure. ERPNext already has those layers, which is why Inspired Delta Ltd can credibly recommend a Lite Version as a working operational platform rather than a demonstration prototype.</p>
+</div>
+
+<div class="card">
+    <div class="card-header">Illustrative ERPNext Base Platform Screens</div>
+    <p class="text-small">The references below show the kind of standard ERPNext capability that reduces build effort during the AIPMS Lite Version stage: reporting workspaces and project-oriented operational records that can be extended with AIPMS-specific workflow, controls, and reporting logic.</p>
+    <div class="gallery-4">
+        <div class="shot-card">
+            <img src="/proposal/AIPMS/reporting_workspace.png" alt="ERPNext reporting workspace">
+            <div class="caption"><strong>Reporting foundation:</strong> built-in reporting workspaces that can be adapted into governance, finance, and operational dashboards.</div>
+        </div>
+        <div class="shot-card">
+            <img src="/proposal/AIPMS/project_workspace.png" alt="ERPNext project workspace">
+            <div class="caption"><strong>Project workspace:</strong> project, task, issue, and claims links that support the schedule and milestone-control model required by AIPMS.</div>
+        </div>
+    </div>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Lite Version Need</th>
+            <th>ERPNext Capability Already Available</th>
+            <th>Implementation Impact</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Milestone and schedule control</td>
+            <td>Projects, Tasks, templates, assignments, status tracking, notifications</td>
+            <td>Configured rather than custom-built, allowing rapid Week 2 activation of Module 1.</td>
+        </tr>
+        <tr>
+            <td>Contract and vendor records</td>
+            <td>Supplier, contract, procurement, workflow, document attachment, reporting framework</td>
+            <td>Enables Module 2 register and approval structure with targeted custom fields and routing logic.</td>
+        </tr>
+        <tr>
+            <td>Payment claim workflow and certificates</td>
+            <td>Approval workflow, transactional records, print formats, role restrictions</td>
+            <td>Allows Module 3 core claims and certificate generation to go live before full automation is completed in Phase 2.</td>
+        </tr>
+        <tr>
+            <td>Document management and audit controls</td>
+            <td>File attachments, version history, permissions, activity tracking</td>
+            <td>Supports immediate rollout of repository and approval-linked attachment controls in Lite mode.</td>
+        </tr>
+        <tr>
+            <td>Governance and meeting administration</td>
+            <td>Custom DocTypes, calendars, workflows, notifications, ToDos, reports</td>
+            <td>Allows meetings, agendas, minutes, decisions, and follow-up actions to be stood up quickly.</td>
+        </tr>
+        <tr>
+            <td>RBAC and user provisioning</td>
+            <td>Role-based permission model, user management, field-level restrictions, approval routing</td>
+            <td>Reduces lead time for access control because the core security model already exists.</td>
+        </tr>
+    </tbody>
+</table>
+
+<table>
+    <thead>
+        <tr>
+            <th>Week 2 Lite Deliverable</th>
+            <th>What Users Will Be Able to Do</th>
+            <th>What Is Completed in Later Sprints</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Programme schedule workspace</td>
+            <td>Create and monitor programme schedules, milestones, owners, due dates, and status changes with dashboard visibility.</td>
+            <td>Deeper analytics, escalation tuning, and final executive print/report refinements.</td>
+        </tr>
+        <tr>
+            <td>Contract and vendor register</td>
+            <td>Maintain vendors, contract records, values, approvals, and document attachments under controlled access.</td>
+            <td>Extended variation logic, additional compliance checks, and more advanced exception reporting.</td>
+        </tr>
+        <tr>
+            <td>Core claim and certificate workflow</td>
+            <td>Log claims, route approvals, record supporting documents, and generate baseline payment certificates.</td>
+            <td>Expanded validation layers, advanced withholding logic, and tighter FDT-linked certification rules.</td>
+        </tr>
+        <tr>
+            <td>Document and governance repository</td>
+            <td>Store agendas, minutes, decisions, attachments, and follow-up records with permissions and approval states.</td>
+            <td>Additional governance templates, quorum automation, and richer search or dashboard summarisation.</td>
+        </tr>
+        <tr>
+            <td>User access and baseline controls</td>
+            <td>Provision users, apply roles, restrict access by function, and track key actions through the audit trail.</td>
+            <td>Further field-level restrictions, refined segregation-of-duty rules, and operational hardening.</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="card">
+    <div class="card-header">Week 2 Lite Version Positioning</div>
+    <p>Inspired Delta Ltd positions the Lite Version as a <strong>configuration-led operational release</strong>, not as a claim that all seven modules will be fully completed within two weeks. The delivery sequence is as follows:</p>
+    <ul>
+        <li><strong>Week 1:</strong> mobilise, load parameters, create users, define workflows, prepare print formats, and configure the core data model.</li>
+        <li><strong>Week 2:</strong> activate Modules 1-5 for live use at core level, validate access and approvals, and begin programme operations.</li>
+        <li><strong>Weeks 3-8:</strong> extend the platform into deeper automation, FDT integration, dashboards, HR/payroll completion, and full go-live hardening.</li>
+    </ul>
+    <p>This is exactly the sort of delivery model ERPNext supports well: early operational release through configuration, followed by targeted customisation where programme-specific logic becomes necessary.</p>
+    <p>Accordingly, the Lite Version will operate as a <strong>usable controlled-release environment</strong> for programme commencement, not as a reduced demonstration. Users will be able to transact, route approvals, store evidence, review dashboards, and generate core outputs. The distinction between Lite Version and Full Go-Live is therefore not whether the platform is usable, but the depth of automation, integration maturity, and reporting sophistication available at each stage.</p>
 </div>
 
 <h3>Configuration Panel Design</h3>
 <div class="card">
     <p>The AIPMS Configuration Panel will be implemented as administrator-controlled DocTypes and forms within Frappe. Tier 1 users will be able to maintain contract values, cost lines, working capital advance settings, unit payment rates, zone targets, milestone percentages, retention rules, organisational roles, escalation thresholds, and report parameters without direct code edits. Changes will be permission-controlled and audit-logged.</p>
+    <p>This design is intended to satisfy the RFP requirement that financial and programme parameters be configurable by authorised users rather than hard-coded into the system. The implementation will therefore expose controlled administrative forms for master settings, approval thresholds, unit rates, milestone percentages, escalation triggers, and report parameters, with change history preserved for governance and audit purposes.</p>
+</div>
+
+<div class="card">
+    <div class="card-header">Illustrative Form Configuration Screens</div>
+    <p class="text-small">The examples below show the type of no-code or low-code form customisation interface that supports the proposed Configuration Panel approach. They demonstrate how authorised administrators can organise layouts, add fields, and define field properties without rewriting the underlying platform.</p>
+    <div class="gallery-4">
+        <div class="shot-card">
+            <img src="/proposal/AIPMS/configuration_form_builder.png" alt="ERPNext form layout builder">
+            <div class="caption"><strong>Form layout builder:</strong> visual arrangement of tabs, sections, and fields to support controlled AIPMS form design and administrative adaptability.</div>
+        </div>
+        <div class="shot-card">
+            <img src="/proposal/AIPMS/configuration_field_properties.png" alt="ERPNext field properties configuration">
+            <div class="caption"><strong>Field property control:</strong> configuration of field type, mandatory rules, uniqueness, list visibility, and other administrative properties without custom rewrites for every change.</div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">Illustrative Workflow Configuration Screen</div>
+    <p class="text-small">The example below illustrates how ERPNext workflow states can be configured for controlled approval progression. In AIPMS, the same design pattern will be used for selective vendor routing, claim approvals, document locking, governance actions, and other programme-specific review states.</p>
+    <div class="gallery-4">
+        <div class="shot-card">
+            <img src="/proposal/AIPMS/workflow_states.png" alt="ERPNext workflow state configuration">
+            <div class="caption"><strong>Workflow states:</strong> configurable status progression, role restrictions, and approval checkpoints that can be adapted to AIPMS governance and control flows.</div>
+        </div>
+    </div>
 </div>
 
 <h3>Compliance Summary by Module</h3>
@@ -739,15 +1012,87 @@
     </tbody>
 </table>
 
+<h3>HR Module Delivery Approach</h3>
+<div class="card">
+    <p>The HR module will be implemented using ERPNext HR and Payroll as the foundation, extended where required for programme-specific deployment controls. This allows AIPMS to support employee master records, contract terms, attendance, deployment assignment, payroll processing, statutory deductions, training records, and bulk onboarding from CSV within a single governed environment.</p>
+    <p>Our approach is to configure payroll structures, salary components, deduction rules, and approval controls early in the build, then complete detailed remuneration logic and parallel validation before production use. Access to salary, bank, and statutory information will be restricted through role-based and field-level permissions, while line managers and deployment supervisors will only see the operational information required for assignment and attendance administration.</p>
+    <p>The proposal therefore treats the HR module as a controlled operational subsystem, not a standalone payroll tool. It will be integrated into the wider AIPMS governance model so that staff deployment, attendance, payroll readiness, and reporting remain visible to authorised programme administrators without exposing protected personal or financial data unnecessarily.</p>
+</div>
+
+<div class="card">
+    <div class="card-header">Illustrative HR and Claims Screens</div>
+    <p class="text-small">These examples show the type of standard HR and controlled-claims forms that can be configured and extended for AIPMS staff administration, attendance-related requests, reimbursements, advances, and payroll-adjacent controls.</p>
+    <div class="gallery-4">
+        <div class="shot-card">
+            <img src="/proposal/AIPMS/hr_leave_request_form.png" alt="ERPNext HR leave request form">
+            <div class="caption"><strong>Structured HR form:</strong> an example of a controlled request form with required fields, dates, and reason capture.</div>
+        </div>
+        <div class="shot-card">
+            <img src="/proposal/AIPMS/hr_expense_advances.png" alt="ERPNext HR expenses and advances workspace">
+            <div class="caption"><strong>Claims and advances workspace:</strong> standard employee expense and advance controls that can be aligned with approval and audit requirements.</div>
+        </div>
+    </div>
+</div>
+
+<h3>FDT Integration Delivery Approach</h3>
+<div class="card">
+    <p>AIPMS does not replace the Field Data Tool. Inspired Delta Ltd will implement the required interface layer so that AIPMS can receive, validate, log, and apply FDT outputs in support of certification, reporting, and programme control workflows. The initial in-scope method is controlled CSV-based ingestion, with optional API-based integration available as a later enhancement if the final FDT specification permits.</p>
+    <p>Our Phase 1 approach covers schema validation, mandatory-field checks, duplicate detection, import batch logging, row-level error reporting, and reconciliation controls so that invalid or inconsistent records do not silently enter payment or reporting processes. Imported FDT outputs will be retained as source records, with discrepancy flags and exception handling used to protect downstream certification workflows.</p>
+    <p>This means the AIPMS implementation will provide a governed interface rather than a blind file upload utility. The intent is to make FDT-driven decisions traceable, reviewable, and defensible from an audit perspective, especially where imported field results affect payment certification, milestone evidence, or executive reporting.</p>
+</div>
+
+<div class="card">
+    <div class="card-header">Illustrative Controlled Import Screen</div>
+    <p class="text-small">The import example below illustrates the kind of structured import process that supports the proposed FDT integration model: template-driven upload, preview or import review, and visible import logs showing processing outcome.</p>
+    <div class="gallery-4">
+        <div class="shot-card">
+            <img src="/proposal/AIPMS/import_tool_success.png" alt="ERPNext import tool success screen">
+            <div class="caption"><strong>Controlled import workspace:</strong> template-based import, processing log, and visible success or failure status aligned with the AIPMS FDT ingestion approach.</div>
+        </div>
+    </div>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>FDT Import Requirement</th>
+            <th>Proposed AIPMS Approach</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>CSV import interface</td>
+            <td>A controlled import workspace will be provided for authorised users to upload FDT CSV files against a defined template. The tool will support pre-import validation, import preview, batch submission, and persistent import history so that every load can be traced by file, operator, date, and result.</td>
+        </tr>
+        <tr>
+            <td>Validation logic</td>
+            <td>Validation rules will check file structure, expected headers, mandatory fields, field type conformity, date formats, contract or milestone references, and other business-rule dependencies before records are committed. Invalid rows will be rejected into an exception log for correction and controlled re-import.</td>
+        </tr>
+        <tr>
+            <td>Deduplication mechanism</td>
+            <td>Deduplication will be handled through a combination of batch identifiers, source record keys, and configurable matching rules on agreed business fields such as claim reference, milestone reference, vendor reference, or field transaction ID. Suspected duplicates will be held for review rather than automatically merged or overwritten.</td>
+        </tr>
+        <tr>
+            <td>Import auditability</td>
+            <td>Each import batch will produce a log showing accepted rows, rejected rows, warnings, duplicate flags, user identity, upload timestamp, and downstream processing status. This allows payment and governance teams to review how imported records affected operational workflows.</td>
+        </tr>
+        <tr>
+            <td>Phase 2 API approach</td>
+            <td>If the FDT exposes a stable authenticated interface, Phase 2 can extend the CSV process into scheduled or event-driven API exchange. The recommended pattern is a secure API gateway with token-based authentication, schema-level validation, idempotent processing, error queueing, and reconciliation logs so API ingestion remains as controlled and auditable as batch imports.</td>
+        </tr>
+    </tbody>
+</table>
+
 <h3>Technical Requirements Mapping</h3>
 <div class="grid-2">
     <div class="card">
         <div class="card-header">Hosting & Infrastructure</div>
         <ul class="text-small">
-            <li>Cloud-hosted production environment with declared data residency in the final hosting schedule.</li>
-            <li>99.5% monthly uptime SLA minimum, excluding agreed maintenance windows.</li>
-            <li>Daily backups with point-in-time recovery design targeting RPO of 1 hour and RTO of 4 hours.</li>
-            <li>Architecture sized for at least 50 concurrent users, with scaling options during peak milestone periods.</li>
+            <li><strong>Recommended deployment:</strong> cloud-hosted ERPNext/Frappe production environment with primary production data hosted in Nigeria for contractual and data-governance clarity, subject to final client confirmation in the hosting schedule.</li>
+            <li><strong>Availability target:</strong> 99.5% monthly uptime minimum, excluding pre-agreed maintenance windows scheduled outside business hours.</li>
+            <li><strong>Backup strategy:</strong> automated nightly full backups plus transaction-log / point-in-time recovery retention, with backup encryption and routine restore testing.</li>
+            <li><strong>Recovery design:</strong> operational runbook designed to support RPO of 1 hour and RTO of 4 hours for production restoration.</li>
+            <li><strong>Capacity baseline:</strong> initial production sizing for at least 50 concurrent users, with headroom for peak milestone and certification periods and a scale-up path for app and database resources.</li>
         </ul>
     </div>
     <div class="card">
@@ -762,23 +1107,172 @@
     </div>
 </div>
 
+<h3>Recommended Hosting and Recovery Approach</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Area</th>
+            <th>Recommended Approach</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Production Topology</td>
+            <td>Dedicated production environment with reverse proxy, ERPNext/Frappe application services, Redis/background workers, MariaDB relational database services, and managed backup storage. Non-production environments will be separated from live production operations, with staging used for controlled release verification before deployment.</td>
+        </tr>
+        <tr>
+            <td>Data Residency</td>
+            <td>Inspired Delta Ltd recommends and prices the solution on the basis of primary production data residency in Nigeria. The final hosting schedule should therefore name the Nigerian production location explicitly, with any secondary backup or disaster-recovery copy managed in line with the agreed contractual and regulatory position.</td>
+        </tr>
+        <tr>
+            <td>Backup Operations</td>
+            <td>Nightly encrypted full backup, point-in-time transaction-log retention, and replicated backup copy to secondary storage. Monthly restore verification should be part of service reporting to prove recoverability, not just backup existence.</td>
+        </tr>
+        <tr>
+            <td>Recovery Procedure</td>
+            <td>Documented runbook covering service restoration sequence, database recovery, application verification, user acceptance checks, and communication/escalation steps. This is how the stated RPO and RTO become operationally credible.</td>
+        </tr>
+        <tr>
+            <td>Monitoring & Alerts</td>
+            <td>Infrastructure and application monitoring for uptime, queue health, disk utilization, failed jobs, backup status, and critical workflow failures, with alerting routed to the support lead during hypercare and retainer support.</td>
+        </tr>
+        <tr>
+            <td>Scaling Model</td>
+            <td>Start with right-sized production resources for the expected user base, then scale vertically or horizontally during peak usage windows such as milestone reviews, payroll runs, bulk imports, and reporting cycles.</td>
+        </tr>
+        <tr>
+            <td>Business Continuity Position</td>
+            <td>Inspired Delta Ltd presents backup and recovery as part of an overall operational continuity model: backups, monitoring, restore testing, escalation workflow, and documented support ownership.</td>
+        </tr>
+    </tbody>
+</table>
+
+<table>
+    <thead>
+        <tr>
+            <th>Architecture Area</th>
+            <th>Specific Recommendation</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Hosting environment</td>
+            <td>Managed cloud deployment with separate production and non-production environments, reverse proxy, application workers, job queues, encrypted object or backup storage, and monitored network access controls.</td>
+        </tr>
+        <tr>
+            <td>Database technology</td>
+            <td>MariaDB is recommended as the primary transactional database for the ERPNext/Frappe deployment, backed by structured backup retention, point-in-time recovery design, and controlled administrative access. Redis will support caching and queue processing.</td>
+        </tr>
+        <tr>
+            <td>Security measures</td>
+            <td>TLS for all client and integration traffic, encryption for backup media, role-based and field-level access restrictions, 2FA for privileged users, audit logging, hardened admin access, and pre-go-live security review with remediation of material findings.</td>
+        </tr>
+        <tr>
+            <td>Backup and recovery</td>
+            <td>Nightly encrypted full backups, transaction-log retention supporting point-in-time recovery, secondary backup copy, documented restoration runbook, and routine restore testing aligned to target RPO of 1 hour and RTO of 4 hours.</td>
+        </tr>
+        <tr>
+            <td>Data residency confirmation</td>
+            <td>The proposal position is that the primary production environment should reside in Nigeria. Any exception to that should be treated as a commercial and legal approval item rather than left implicit.</td>
+        </tr>
+    </tbody>
+</table>
+
 <div class="grid-2">
     <div class="card">
         <div class="card-header">FDT Integration Module</div>
         <ul class="text-small">
-            <li>Phase 1 CSV import with schema validation, duplicate detection, field-level error reporting, and immutable batch logs.</li>
-            <li>Imported FDT records retained as source records; payment discrepancies flagged for manual review rather than overwritten.</li>
-            <li>Phase 2 API option can be provided as an optional enhancement, subject to the final FDT interface specification.</li>
+            <li>Phase 1 CSV import workspace with upload controls, preview checks, schema validation, duplicate detection, field-level error reporting, and immutable batch logs.</li>
+            <li>Imported FDT records retained as source records; payment discrepancies and duplicate candidates flagged for manual review rather than overwritten.</li>
+            <li>Phase 2 API option can be provided as an optional enhancement, using authenticated endpoints, idempotent processing, exception handling, and reconciliation logging, subject to the final FDT interface specification.</li>
         </ul>
     </div>
     <div class="card">
         <div class="card-header">Offline & Mobile</div>
         <ul class="text-small">
             <li>Web access across current desktop and mobile browsers.</li>
-            <li>Offline-first attendance and deployment capture for designated HR field forms, with background sync after reconnection.</li>
-            <li>Scope includes configuration, testing, and user training for low-connectivity operating conditions.</li>
+            <li>Designated HR attendance and deployment forms will be delivered through a lightweight custom PWA-style capture interface, with local browser storage, time-stamped form save, and deferred sync once connectivity is restored.</li>
+            <li>Submitted offline records will be queued for synchronisation and marked with sync status so users and supervisors can distinguish local draft records from server-confirmed transactions.</li>
+            <li>Conflict handling will prevent silent overwrites by requiring server-side validation on reconnection and exception prompts where the same record has materially changed before sync completion.</li>
+            <li>Scope includes configuration, testing, device/browser guidance, and user training for low-connectivity operating conditions.</li>
         </ul>
     </div>
+</div>
+
+<div class="card">
+    <div class="card-header">Low-Connectivity Operating Model for HR Attendance and Deployment Forms</div>
+    <p>For the designated HR attendance and deployment use cases, Inspired Delta Ltd proposes a controlled offline-capable browser workflow delivered as a lightweight custom progressive web application (PWA) rather than unrestricted full-platform offline operation. The form will expose only the minimum approved attendance and deployment fields required for field operations, and it will be designed to open quickly, cache its shell locally, and continue accepting entries when connectivity is weak or temporarily unavailable.</p>
+    <p>In operating terms, the user first opens the lightweight form while online so the latest form definition, reference values, and user permissions are loaded to the device. If connectivity drops, the user can continue to capture attendance or deployment data and save it locally with a time stamp, user identity, and pending-sync status. Once connectivity is restored, the queued transaction is synchronised back to the central AIPMS environment through a controlled Frappe endpoint and subjected to the same server-side validation, permission checks, deduplication checks, and audit logging as any directly online transaction.</p>
+    <p>This offline approach is intentionally limited to the specific HR forms identified in scope. It is suitable for low-connectivity attendance and deployment administration, and it avoids overstating the proposal as a completely offline ERP environment. The recommended design pattern is consistent with the broader Frappe ecosystem, where mobile-facing products are already delivered through installable progressive web applications rather than through a fully offline ERP desk experience.</p>
+</div>
+
+<div class="card">
+    <div class="card-header">Illustrative Mobile HR Experience</div>
+    <p class="text-small">The screenshots below illustrate the type of lightweight mobile experience that supports field-friendly attendance workflows: installable access, simple login, quick check-in action, confirmation step, and successful submission state. In the proposed AIPMS model, the same pattern is adapted for designated HR attendance and deployment forms with queued synchronisation where connectivity is unstable.</p>
+    <div class="gallery-4">
+        <div class="shot-card">
+            <img src="/proposal/AIPMS/hr0.jpeg" alt="Frappe HR mobile login screen">
+            <div class="caption"><strong>Login and app access:</strong> installable mobile-facing screen suitable for rapid user access in the field.</div>
+        </div>
+        <div class="shot-card">
+            <img src="/proposal/AIPMS/hr1.jpeg" alt="Frappe HR home screen with check in action">
+            <div class="caption"><strong>Home and check-in entry:</strong> a simplified mobile home screen with a direct attendance action.</div>
+        </div>
+        <div class="shot-card">
+            <img src="/proposal/AIPMS/hr2.jpeg" alt="Frappe HR check in confirmation">
+            <div class="caption"><strong>Confirmation step:</strong> explicit user confirmation before the attendance transaction is submitted.</div>
+        </div>
+        <div class="shot-card">
+            <img src="/proposal/AIPMS/hr3.jpeg" alt="Frappe HR successful check in state">
+            <div class="caption"><strong>Success feedback:</strong> clear confirmation to the user once the attendance action has been accepted.</div>
+        </div>
+    </div>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Low-Connectivity Step</th>
+            <th>How the Process Will Work</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1. Form preparation</td>
+            <td>Authorised HR or deployment users access the designated attendance or deployment form while online. The system loads the latest allowed form structure, required reference values, user permissions, and validation rules into the browser session.</td>
+        </tr>
+        <tr>
+            <td>2. Local capture during low connectivity</td>
+            <td>If connectivity becomes weak or unavailable, the user can still enter attendance or deployment data into the lightweight form. The data is saved locally in the browser on the device together with a time stamp, user identity, and sync status marker.</td>
+        </tr>
+        <tr>
+            <td>3. Local queue and status tracking</td>
+            <td>Each saved record remains in a pending-sync queue visible to the user or supervisor. This makes it clear which records are still local drafts and which have already been accepted by the central AIPMS platform.</td>
+        </tr>
+        <tr>
+            <td>4. Reconnection and submission</td>
+            <td>When the device reconnects, the queued records are submitted to AIPMS through a controlled API or server endpoint. Submission occurs in sequence so each record can be validated and acknowledged individually.</td>
+        </tr>
+        <tr>
+            <td>5. Server-side validation</td>
+            <td>AIPMS validates the submitted record against current business rules, required fields, user permissions, duplicate checks, and any linked employee or deployment references. Invalid or conflicting records are rejected into an exception state rather than silently accepted.</td>
+        </tr>
+        <tr>
+            <td>6. Audit and final confirmation</td>
+            <td>Accepted records are committed to the live AIPMS database, audit-logged, and marked as synchronised on the user device. Exception records remain visible for correction and re-submission under controlled review.</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="card text-small">
+    <div class="card-header">Supporting Reference Notes</div>
+    <p>The proposed low-connectivity design is informed by the current Frappe product pattern for installable mobile-facing progressive web applications. Relevant official references include the Frappe HR mobile app installation guide, the Frappe CRM mobile app installation guide, and the Frappe framework apps-page guidance for exposing custom app routes:</p>
+    <ul>
+        <li><a href="https://docs.frappe.io/hr/mobile-app-installation" target="_blank" rel="noopener noreferrer">https://docs.frappe.io/hr/mobile-app-installation</a></li>
+        <li><a href="https://docs.frappe.io/crm/mobile-app-installation" target="_blank" rel="noopener noreferrer">https://docs.frappe.io/crm/mobile-app-installation</a></li>
+        <li><a href="https://docs.frappe.io/framework/user/en/apps-page" target="_blank" rel="noopener noreferrer">https://docs.frappe.io/framework/user/en/apps-page</a></li>
+    </ul>
+    <p>These references support the technical position that a lightweight installable PWA-style capture interface can sit alongside the main ERPNext/Frappe platform for targeted mobile or low-connectivity workflows.</p>
 </div>
 
 <h3>Architecture, HR, and Data Control Notes</h3>
