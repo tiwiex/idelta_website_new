@@ -188,53 +188,8 @@
             }
         }
     </style>
-    <script>
-        (function () {
-            var STORAGE_KEY = "proposal_access_granted";
-            var PASSCODE = "proposal2026";
-
-            function unlockPage() {
-                document.addEventListener("DOMContentLoaded", function () {
-                    document.body.classList.remove("locked");
-                });
-            }
-
-            try {
-                if (sessionStorage.getItem(STORAGE_KEY) === "yes") {
-                    unlockPage();
-                    return;
-                }
-            } catch (error) {}
-
-            var granted = false;
-            for (var attempt = 0; attempt < 3; attempt++) {
-                var input = window.prompt("Enter proposal access password:");
-                if (input === PASSCODE) {
-                    granted = true;
-                    try {
-                        sessionStorage.setItem(STORAGE_KEY, "yes");
-                    } catch (error) {}
-                    break;
-                }
-                if (input === null) {
-                    break;
-                }
-                window.alert("Incorrect password.");
-            }
-
-            if (granted) {
-                unlockPage();
-                return;
-            }
-
-            document.addEventListener("DOMContentLoaded", function () {
-                document.body.innerHTML = '<div style="max-width:720px;margin:80px auto;padding:24px;font-family:Segoe UI,Arial,sans-serif;border:1px solid #cadbe6;border-radius:16px;background:#f8fbfd;color:#173142;box-shadow:0 12px 28px rgba(15,46,66,0.08);"><h1 style="font-size:28px;margin-bottom:12px;">Protected Page</h1><p style="margin:0;">Access was not granted. Refresh the page to try again.</p></div>';
-                document.body.classList.remove("locked");
-            });
-        })();
-    </script>
 </head>
-<body class="locked">
+<body>
 
 <h1>Proposal Submission Reference</h1>
 <p>Reference checklist and gap-closure guide for the AIPMS and FEVA proposal packages.</p>

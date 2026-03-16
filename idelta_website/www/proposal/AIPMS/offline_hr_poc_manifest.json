@@ -1,0 +1,9 @@
+{
+  "name": "AIPMS Offline HR PoC",
+  "short_name": "AIPMS PoC",
+  "start_url": "/proposal/AIPMS/offline_hr_poc.html",
+  "display": "standalone",
+  "background_color": "#f7fbfe",
+  "theme_color": "#174d6b",
+  "description": "Quick proof of concept for offline HR attendance or deployment capture with local queueing and reconnect sync."
+}

@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIPMS Offline HR PoC</title>
+    <link rel="manifest" href="/proposal/AIPMS/offline_hr_poc_manifest.json">
+    <meta name="theme-color" content="#174d6b">
+    <style>
+        :root {
+            --ink: #183245;
+            --ink-soft: #486274;
+            --accent: #1f6f99;
+            --accent-strong: #174d6b;
+            --surface: #f7fbfe;
+            --border: #cfe0ea;
+            --ok: #1d6b42;
+            --warn: #8b5a15;
+            --bad: #b33a3a;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: linear-gradient(180deg, #f6fbfe, #ffffff);
+            color: var(--ink);
+            padding: 24px;
+        }
+
+        .wrap {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #256f95, #174d6b);
+            color: #fff;
+            border-radius: 18px;
+            padding: 20px 22px;
+            box-shadow: 0 16px 34px rgba(23, 77, 107, 0.18);
+        }
+
+        .hero h1 {
+            margin: 0 0 8px;
+            font-size: 1.9rem;
+        }
+
+        .hero p {
+            margin: 0;
+            max-width: 820px;
+            line-height: 1.5;
+        }
+
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.16);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 999px;
+            padding: 6px 12px;
+            font-size: 0.84rem;
+            font-weight: 700;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 18px;
+            margin-top: 18px;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 18px;
+            box-shadow: 0 12px 28px rgba(16, 54, 77, 0.08);
+        }
+
+        .card h2 {
+            margin: 0 0 14px;
+            font-size: 1.1rem;
+        }
+
+        .field-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--ink-soft);
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px 13px;
+            font: inherit;
+            color: var(--ink);
+            background: #fff;
+        }
+
+        textarea {
+            min-height: 96px;
+            resize: vertical;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        button {
+            border: 0;
+            border-radius: 12px;
+            padding: 12px 16px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .primary {
+            background: var(--accent-strong);
+            color: #fff;
+        }
+
+        .secondary {
+            background: #e7f1f7;
+            color: var(--ink);
+        }
+
+        .ghost {
+            background: #fff;
+            color: var(--ink);
+            border: 1px solid var(--border);
+        }
+
+        .status-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .status {
+            padding: 10px 12px;
+            border-radius: 12px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            border: 1px solid var(--border);
+            background: #fff;
+        }
+
+        .status.online { color: var(--ok); }
+        .status.offline { color: var(--warn); }
+        .status.error { color: var(--bad); }
+
+        .log {
+            margin-top: 12px;
+            padding: 12px;
+            border-radius: 12px;
+            background: #fff;
+            border: 1px dashed var(--border);
+            font-size: 0.9rem;
+            color: var(--ink-soft);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 10px 10px;
+            border-bottom: 1px solid #deebf2;
+            vertical-align: top;
+        }
+
+        th {
+            color: var(--ink-soft);
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 4px 9px;
+            border-radius: 999px;
+            font-size: 0.74rem;
+            font-weight: 700;
+        }
+
+        .pill-pending { background: #fff2d9; color: var(--warn); }
+        .pill-synced { background: #dff3e6; color: var(--ok); }
+        .pill-error { background: #f7dddd; color: var(--bad); }
+
+        .footnote {
+            margin-top: 18px;
+            font-size: 0.84rem;
+            color: var(--ink-soft);
+        }
+
+        @media (max-width: 860px) {
+            .grid,
+            .field-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <section class="hero">
+            <h1>AIPMS Offline HR Form PoC</h1>
+            <p>
+                Quick demonstration of a field attendance or deployment form that caches the app shell,
+                stores transactions locally while offline, and syncs them back when connectivity returns.
+                This is a browser-side proof of pattern, not a production HRMS integration.
+            </p>
+            <div class="badges">
+                <span class="badge">Installable PWA Shell</span>
+                <span class="badge">IndexedDB Queue</span>
+                <span class="badge">Reconnect Sync</span>
+            </div>
+        </section>
+
+        <section class="card" style="margin-top: 18px;">
+            <h2>PoC URLs</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Resource</th>
+                        <th>URL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>PoC Page</td>
+                        <td><code>/proposal/AIPMS/offline_hr_poc.html</code></td>
+                    </tr>
+                    <tr>
+                        <td>Manifest</td>
+                        <td><code>/proposal/AIPMS/offline_hr_poc_manifest.json</code></td>
+                    </tr>
+                    <tr>
+                        <td>Service Worker</td>
+                        <td><code>/proposal/AIPMS/offline_hr_poc_sw.js</code></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="grid">
+            <div class="card">
+                <h2>Attendance / Deployment Form</h2>
+                <div class="status-row">
+                    <div id="networkStatus" class="status">Checking network...</div>
+                    <div id="swStatus" class="status">Service worker not checked</div>
+                </div>
+
+                <form id="attendanceForm">
+                    <div class="field-grid">
+                        <div class="field">
+                            <label for="employeeId">Employee ID</label>
+                            <input id="employeeId" name="employeeId" required placeholder="EMP-0001" value="EMP-0001">
+                        </div>
+                        <div class="field">
+                            <label for="employeeName">Employee Name</label>
+                            <input id="employeeName" name="employeeName" required placeholder="Adaora Example" value="Adaora Example">
+                        </div>
+                        <div class="field">
+                            <label for="deploymentZone">Deployment Zone</label>
+                            <input id="deploymentZone" name="deploymentZone" required placeholder="Zone A" value="Zone A">
+                        </div>
+                        <div class="field">
+                            <label for="attendanceStatus">Attendance Status</label>
+                            <select id="attendanceStatus" name="attendanceStatus" required>
+                                <option value="Present">Present</option>
+                                <option value="Absent">Absent</option>
+                                <option value="Late">Late</option>
+                                <option value="On Deployment">On Deployment</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="recordDate">Record Date</label>
+                            <input id="recordDate" name="recordDate" type="date" required>
+                        </div>
+                        <div class="field">
+                            <label for="recordTime">Record Time</label>
+                            <input id="recordTime" name="recordTime" type="time" required>
+                        </div>
+                        <div class="field full">
+                            <label for="remarks">Remarks</label>
+                            <textarea id="remarks" name="remarks" placeholder="Optional field note or supervisor comment">Morning attendance capture test for low-connectivity sync workflow.</textarea>
+                        </div>
+                    </div>
+
+                    <div class="actions">
+                        <button type="submit" class="primary">Save To Offline Queue</button>
+                        <button type="button" id="syncNowBtn" class="secondary">Try Sync Now</button>
+                        <button type="button" id="clearSyncedBtn" class="ghost">Clear Synced Records</button>
+                    </div>
+                </form>
+
+                <div id="log" class="log">
+                    Ready. Submit a record online or offline to see the queue behavior.
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Queue State</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Employee</th>
+                            <th>Zone</th>
+                            <th>Status</th>
+                            <th>Sync State</th>
+                        </tr>
+                    </thead>
+                    <tbody id="queueTableBody">
+                        <tr>
+                            <td colspan="4">No offline records yet.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="footnote">
+                    PoC behavior:
+                    cached shell via service worker, records stored in IndexedDB, sync attempted automatically on reconnect
+                    or manually via the button above. Successful sync is simulated in the browser for demonstration.
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const DB_NAME = "aipms_offline_hr_poc";
+        const STORE_NAME = "attendance_queue";
+        const logEl = document.getElementById("log");
+        const queueTableBody = document.getElementById("queueTableBody");
+        const networkStatus = document.getElementById("networkStatus");
+        const swStatus = document.getElementById("swStatus");
+        const syncNowBtn = document.getElementById("syncNowBtn");
+        const clearSyncedBtn = document.getElementById("clearSyncedBtn");
+        const form = document.getElementById("attendanceForm");
+
+        document.getElementById("recordDate").value = new Date().toISOString().slice(0, 10);
+        document.getElementById("recordTime").value = new Date().toTimeString().slice(0, 5);
+
+        function setLog(message, type = "info") {
+            logEl.textContent = message;
+            logEl.style.color = type === "error" ? "#b33a3a" : "#486274";
+        }
+
+        function updateNetworkBadge() {
+            const online = navigator.onLine;
+            networkStatus.textContent = online ? "Online: sync available" : "Offline: queueing locally";
+            networkStatus.className = `status ${online ? "online" : "offline"}`;
+        }
+
+        function openDb() {
+            return new Promise((resolve, reject) => {
+                const request = indexedDB.open(DB_NAME, 1);
+                request.onupgradeneeded = (event) => {
+                    const db = event.target.result;
+                    if (!db.objectStoreNames.contains(STORE_NAME)) {
+                        const store = db.createObjectStore(STORE_NAME, { keyPath: "id" });
+                        store.createIndex("syncState", "syncState", { unique: false });
+                        store.createIndex("createdAt", "createdAt", { unique: false });
+                    }
+                };
+                request.onsuccess = () => resolve(request.result);
+                request.onerror = () => reject(request.error);
+            });
+        }
+
+        async function putRecord(record) {
+            const db = await openDb();
+            return new Promise((resolve, reject) => {
+                const tx = db.transaction(STORE_NAME, "readwrite");
+                tx.objectStore(STORE_NAME).put(record);
+                tx.oncomplete = () => resolve();
+                tx.onerror = () => reject(tx.error);
+            });
+        }
+
+        async function getAllRecords() {
+            const db = await openDb();
+            return new Promise((resolve, reject) => {
+                const tx = db.transaction(STORE_NAME, "readonly");
+                const request = tx.objectStore(STORE_NAME).getAll();
+                request.onsuccess = () => resolve(request.result.sort((a, b) => b.createdAt.localeCompare(a.createdAt)));
+                request.onerror = () => reject(request.error);
+            });
+        }
+
+        async function deleteRecord(id) {
+            const db = await openDb();
+            return new Promise((resolve, reject) => {
+                const tx = db.transaction(STORE_NAME, "readwrite");
+                tx.objectStore(STORE_NAME).delete(id);
+                tx.oncomplete = () => resolve();
+                tx.onerror = () => reject(tx.error);
+            });
+        }
+
+        function makeStatePill(state) {
+            const map = {
+                pending_sync: "pill pill-pending",
+                synced: "pill pill-synced",
+                error: "pill pill-error"
+            };
+            return `<span class="${map[state] || "pill"}">${state.replaceAll("_", " ")}</span>`;
+        }
+
+        async function renderQueue() {
+            const records = await getAllRecords();
+            if (!records.length) {
+                queueTableBody.innerHTML = `<tr><td colspan="4">No offline records yet.</td></tr>`;
+                return;
+            }
+
+            queueTableBody.innerHTML = records.map((record) => `
+                <tr>
+                    <td>
+                        <strong>${record.employeeName}</strong><br>
+                        <span>${record.employeeId}</span>
+                    </td>
+                    <td>${record.deploymentZone}</td>
+                    <td>${record.attendanceStatus}</td>
+                    <td>${makeStatePill(record.syncState)}</td>
+                </tr>
+            `).join("");
+        }
+
+        async function saveFormRecord(formData) {
+            const payload = {
+                id: crypto.randomUUID(),
+                employeeId: formData.get("employeeId"),
+                employeeName: formData.get("employeeName"),
+                deploymentZone: formData.get("deploymentZone"),
+                attendanceStatus: formData.get("attendanceStatus"),
+                recordDate: formData.get("recordDate"),
+                recordTime: formData.get("recordTime"),
+                remarks: formData.get("remarks"),
+                createdAt: new Date().toISOString(),
+                syncState: "pending_sync"
+            };
+            await putRecord(payload);
+            return payload;
+        }
+
+        async function simulateServerSync(record) {
+            await new Promise((resolve) => setTimeout(resolve, 400));
+            const duplicate = Math.random() < 0.08;
+            if (duplicate) {
+                throw new Error("Simulated duplicate or validation conflict");
+            }
+            return { ok: true };
+        }
+
+        async function syncPendingRecords() {
+            if (!navigator.onLine) {
+                setLog("Still offline. Records remain queued locally.", "error");
+                return;
+            }
+
+            const records = await getAllRecords();
+            const pending = records.filter((record) => record.syncState === "pending_sync" || record.syncState === "error");
+
+            if (!pending.length) {
+                setLog("No pending records to sync.");
+                return;
+            }
+
+            let synced = 0;
+            let failed = 0;
+
+            for (const record of pending) {
+                try {
+                    await simulateServerSync(record);
+                    record.syncState = "synced";
+                    record.syncedAt = new Date().toISOString();
+                    await putRecord(record);
+                    synced += 1;
+                } catch (error) {
+                    record.syncState = "error";
+                    record.errorMessage = error.message;
+                    await putRecord(record);
+                    failed += 1;
+                }
+            }
+
+            await renderQueue();
+            if (failed) {
+                setLog(`Sync finished with ${synced} synced and ${failed} exception record(s).`, "error");
+            } else {
+                setLog(`Sync successful. ${synced} record(s) accepted.`);
+            }
+        }
+
+        async function clearSyncedRecords() {
+            const records = await getAllRecords();
+            const synced = records.filter((record) => record.syncState === "synced");
+            for (const record of synced) {
+                await deleteRecord(record.id);
+            }
+            await renderQueue();
+            setLog(`Removed ${synced.length} synced record(s) from the local queue.`);
+        }
+
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            const formData = new FormData(form);
+            const record = await saveFormRecord(formData);
+            await renderQueue();
+            setLog(`Queued ${record.employeeName} (${record.employeeId}) for sync.`);
+            form.reset();
+            document.getElementById("recordDate").value = new Date().toISOString().slice(0, 10);
+            document.getElementById("recordTime").value = new Date().toTimeString().slice(0, 5);
+
+            if (navigator.onLine) {
+                await syncPendingRecords();
+            }
+        });
+
+        syncNowBtn.addEventListener("click", syncPendingRecords);
+        clearSyncedBtn.addEventListener("click", clearSyncedRecords);
+
+        window.addEventListener("online", async () => {
+            updateNetworkBadge();
+            setLog("Connectivity restored. Attempting queued sync.");
+            await syncPendingRecords();
+        });
+
+        window.addEventListener("offline", () => {
+            updateNetworkBadge();
+            setLog("You are offline. New records will be stored locally.");
+        });
+
+        async function registerServiceWorker() {
+            if (!("serviceWorker" in navigator)) {
+                swStatus.textContent = "Service worker unsupported";
+                swStatus.className = "status error";
+                return;
+            }
+
+            try {
+                await navigator.serviceWorker.register("/proposal/AIPMS/offline_hr_poc_sw.js", {
+                    scope: "/proposal/AIPMS/"
+                });
+                swStatus.textContent = "Service worker active";
+                swStatus.className = "status online";
+            } catch (error) {
+                swStatus.textContent = "Service worker failed";
+                swStatus.className = "status error";
+            }
+        }
+
+        async function init() {
+            updateNetworkBadge();
+            await registerServiceWorker();
+            await renderQueue();
+        }
+
+        init();
+    </script>
+</body>
+</html>

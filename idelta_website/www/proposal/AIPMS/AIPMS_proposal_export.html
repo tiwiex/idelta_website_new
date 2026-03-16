@@ -673,43 +673,10 @@
             .timeline-visual,
             .infra-schematic,
             .arch-flow,
-            .architecture-grid,
-            .arch-layer,
             table,
             .shot-card {
                 break-inside: avoid;
                 page-break-inside: avoid;
-            }
-
-            .architecture-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-                gap: 0.6rem;
-            }
-
-            .arch-layer {
-                padding: 0.75rem 0.7rem;
-                box-shadow: none;
-            }
-
-            .arch-box {
-                padding: 0.55rem 0.6rem;
-                margin-bottom: 0.5rem;
-                box-shadow: none;
-            }
-
-            .arch-flow-grid {
-                grid-template-columns: 1fr;
-                gap: 0.35rem;
-            }
-
-            .arch-arrow {
-                transform: rotate(90deg);
-                line-height: 1;
-            }
-
-            .arch-step {
-                min-height: auto;
-                padding: 0.6rem;
             }
 
             .page-break {
@@ -2106,11 +2073,11 @@
     </thead>
     <tbody>
         <tr><td>P0 Mobilisation</td><td>Hosting setup, parameter workshops, role setup, configuration planning</td><td class="text-right">&#8358;8,400,000</td></tr>
-        <tr><td>P1 Lite Version</td><td>Modules 1-5 core functionality, workflows, templates, and initial training</td><td class="text-right">&#8358;15,200,000</td></tr>
-        <tr><td>P2 Full Configuration</td><td>Modules 3, 6, and 7 completion, FDT CSV integration, dashboards, HR/payroll, exports</td><td class="text-right">&#8358;15,600,000</td></tr>
+        <tr><td>P1 Lite Version</td><td>Modules 1-5 core functionality, workflows, templates, and initial training</td><td class="text-right">&#8358;25,200,000</td></tr>
+        <tr><td>P2 Full Configuration</td><td>Modules 3, 6, and 7 completion, FDT CSV integration, dashboards, HR/payroll, exports</td><td class="text-right">&#8358;33,600,000</td></tr>
         <tr><td>P3 Full Go-Live</td><td>UAT support, go-live execution, training completion, production cutover support</td><td class="text-right">&#8358;12,600,000</td></tr>
         <tr><td>P4 Handover</td><td>Documentation, knowledge transfer, final acceptance support</td><td class="text-right">&#8358;4,200,000</td></tr>
-        <tr style="font-weight:700; background:#e7f2f8;"><td colspan="2">Total Fixed Delivery Fee</td><td class="text-right">&#8358;56,000,000</td></tr>
+        <tr style="font-weight:700; background:#e7f2f8;"><td colspan="2">Total Fixed Delivery Fee</td><td class="text-right">&#8358;84,000,000</td></tr>
     </tbody>
 </table>
 
@@ -2125,9 +2092,10 @@
         </tr>
     </thead>
     <tbody>
-        <tr><td>Hosting</td><td>Production hosting, backups, monitoring, and maintenance window management</td><td class="text-right">&#8358;500,000</td><td class="text-right">&#8358;6,000,000</td></tr>
-        <tr><td>Year 1 Support Retainer</td><td>Bug fixes, security patches, SLA support, and agreed monthly enhancement hours</td><td class="text-right">&#8358;2,500,000</td><td class="text-right">&#8358;30,000,000</td></tr>
-        <tr style="font-weight:700; background:#e7f2f8;"><td colspan="2">Total Year 1 Recurring Cost</td><td class="text-right">&#8358;3,000,000</td><td class="text-right">&#8358;36,000,000</td></tr>
+        <tr><td>Hosting</td><td>Production hosting, backups, monitoring, and maintenance window management</td><td class="text-right">&#8358;1,400,000</td><td class="text-right">&#8358;16,800,000</td></tr>
+        <tr><td>Year 1 Support Retainer</td><td>Bug fixes, security patches, SLA support, and agreed monthly enhancement hours</td><td class="text-right">&#8358;3,500,000</td><td class="text-right">&#8358;42,000,000</td></tr>
+        <tr><td>Year 2 Support Option</td><td>Indicative renewal pricing</td><td class="text-right">&#8358;3,150,000</td><td class="text-right">&#8358;37,800,000</td></tr>
+        <tr><td>Year 3 Support Option</td><td>Indicative renewal pricing</td><td class="text-right">&#8358;2,940,000</td><td class="text-right">&#8358;35,280,000</td></tr>
     </tbody>
 </table>
 
@@ -2143,32 +2111,16 @@
     <tbody>
         <tr><td>Training</td><td>Tier 1-7 training programme, user guides, and recorded walkthroughs</td><td>Included in fixed delivery fee</td></tr>
         <tr><td>Phase 2 API Integration</td><td>Scheduled/API-based FDT integration beyond mandatory CSV import</td><td class="text-right">&#8358;11,200,000</td></tr>
+        <tr><td>AI-Assisted Report Analysis</td><td>Configurable multi-engine analysis layer for selected dashboards and management reports, with prompt templates, follow-up review, and controlled user access</td><td class="text-right">&#8358;9,800,000</td></tr>
         <tr><td>Mobile HR Check-In</td><td>Enhanced field check-in workflow with device/location controls</td><td class="text-right">&#8358;8,400,000</td></tr>
-        <tr style="font-weight:700; background:#e7f2f8;"><td colspan="2">Total Optional Enhancements</td><td class="text-right">&#8358;19,600,000</td></tr>
+        <tr><td>Advanced Gantt / Portfolio View</td><td>Enhanced programme schedule visualisation</td><td class="text-right">&#8358;5,600,000</td></tr>
     </tbody>
 </table>
 
-<h3>E.4 Commercial Summary</h3>
-<table>
-    <thead>
-        <tr>
-            <th>Commercial Summary Item</th>
-            <th>Amount (&#8358;)</th>
-            <th>Note</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr><td>Fixed Delivery Fee</td><td class="text-right">&#8358;56,000,000</td><td>One-time implementation and handover scope</td></tr>
-        <tr><td>Year 1 Recurring Cost</td><td class="text-right">&#8358;36,000,000</td><td>Hosting plus Year 1 support retainer</td></tr>
-        <tr><td>Year 1 Base Commercial Total</td><td class="text-right">&#8358;92,000,000</td><td>Fixed delivery fee plus Year 1 recurring cost</td></tr>
-        <tr><td>Optional Enhancements</td><td class="text-right">&#8358;19,600,000</td><td>Only if selected by the client</td></tr>
-        <tr style="font-weight:700; background:#e7f2f8;"><td>Total Including All Listed Options</td><td class="text-right">&#8358;111,600,000</td><td>Base total plus optional enhancements</td></tr>
-    </tbody>
-</table>
-
+<p><strong>Total 3-Year Cost of Ownership:</strong> &#8358;215,880,000</p>
 <p><strong>Price validity:</strong> Minimum 90 days from proposal submission date.</p>
 
-<h3>E.5 Proposed Payment Terms</h3>
+<h3>E.4 Proposed Payment Terms</h3>
 <table>
     <thead>
         <tr>

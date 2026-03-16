@@ -1,0 +1,72 @@
+Sr,ID,docstatus,Account Name,Account Number,Parent Account,Root Type,Report Type,Account Type,Is Group
+1,1000,0,Assets,1000,,Asset,Balance Sheet,,1
+2,1100,0,Cash and Bank,1100,Assets,Asset,Balance Sheet,Cash,1
+3,1110,0,Main Programme Bank Account,1110,Cash and Bank,Asset,Balance Sheet,Bank,0
+4,1120,0,Project Float / Imprest,1120,Cash and Bank,Asset,Balance Sheet,Cash,0
+5,1200,0,Receivables and Advances,1200,Assets,Asset,Balance Sheet,,1
+6,1210,0,Working Capital Advance Receivable,1210,Receivables and Advances,Asset,Balance Sheet,Receivable,0
+7,1220,0,Staff Advance Receivable,1220,Receivables and Advances,Asset,Balance Sheet,Receivable,0
+8,1230,0,Vendor Recovery Receivable,1230,Receivables and Advances,Asset,Balance Sheet,Receivable,0
+9,1240,0,Prepaid Hosting and Support,1240,Receivables and Advances,Asset,Balance Sheet,,0
+10,1300,0,Programme Operations Assets,1300,Assets,Asset,Balance Sheet,,1
+11,1310,0,ICT Equipment,1310,Programme Operations Assets,Asset,Balance Sheet,Fixed Asset,0
+12,1320,0,Office Equipment,1320,Programme Operations Assets,Asset,Balance Sheet,Fixed Asset,0
+13,1330,0,Software Licences,1330,Programme Operations Assets,Asset,Balance Sheet,Fixed Asset,0
+14,1400,0,Other Current Assets,1400,Assets,Asset,Balance Sheet,,1
+15,1410,0,Withholding Tax Recoverable,1410,Other Current Assets,Asset,Balance Sheet,Tax,0
+16,1420,0,VAT Input Recoverable,1420,Other Current Assets,Asset,Balance Sheet,Tax,0
+17,2000,0,Liabilities,2000,,Liability,Balance Sheet,,1
+18,2100,0,Payables,2100,Liabilities,Liability,Balance Sheet,Payable,1
+19,2110,0,Trade Creditors,2110,Payables,Liability,Balance Sheet,Payable,0
+20,2120,0,Accrued Vendor Certificates,2120,Payables,Liability,Balance Sheet,Payable,0
+21,2130,0,Outstanding Drawdown Claims,2130,Payables,Liability,Balance Sheet,Payable,0
+22,2200,0,Payroll and Staff Liabilities,2200,Liabilities,Liability,Balance Sheet,,1
+23,2210,0,Salaries Payable,2210,Payroll and Staff Liabilities,Liability,Balance Sheet,Payable,0
+24,2220,0,Pension Payable,2220,Payroll and Staff Liabilities,Liability,Balance Sheet,Payable,0
+25,2230,0,PAYE Tax Payable,2230,Payroll and Staff Liabilities,Liability,Balance Sheet,Payable,0
+26,2240,0,NSITF Payable,2240,Payroll and Staff Liabilities,Liability,Balance Sheet,Payable,0
+27,2250,0,NHF Payable,2250,Payroll and Staff Liabilities,Liability,Balance Sheet,Payable,0
+28,2260,0,NHIS / Health Insurance Payable,2260,Payroll and Staff Liabilities,Liability,Balance Sheet,Payable,0
+29,2300,0,Statutory and Tax Liabilities,2300,Liabilities,Liability,Balance Sheet,,1
+30,2310,0,Withholding Tax Payable,2310,Statutory and Tax Liabilities,Liability,Balance Sheet,Tax,0
+31,2320,0,VAT Output Payable,2320,Statutory and Tax Liabilities,Liability,Balance Sheet,Tax,0
+32,2400,0,Retention and Security Liabilities,2400,Liabilities,Liability,Balance Sheet,,1
+33,2410,0,Retention Held on Certificates,2410,Retention and Security Liabilities,Liability,Balance Sheet,Payable,0
+34,2420,0,Performance Security Liability,2420,Retention and Security Liabilities,Liability,Balance Sheet,Payable,0
+35,3000,0,Equity and Reserves,3000,,Equity,Balance Sheet,,1
+36,3100,0,Accumulated Surplus / Deficit,3100,Equity and Reserves,Equity,Balance Sheet,,0
+37,3200,0,Restricted Programme Reserve,3200,Equity and Reserves,Equity,Balance Sheet,,0
+38,4000,0,Income,4000,,Income,Profit and Loss,,1
+39,4100,0,Government Funding and Receipts,4100,Income,Income,Profit and Loss,,1
+40,4110,0,State Government Funding,4110,Government Funding and Receipts,Income,Profit and Loss,,0
+41,4120,0,Federal Government Support Grants,4120,Government Funding and Receipts,Income,Profit and Loss,,0
+42,4130,0,Development Partner Contributions,4130,Government Funding and Receipts,Income,Profit and Loss,,0
+43,4200,0,Programme Recoveries and Other Income,4200,Income,Income,Profit and Loss,,1
+44,4210,0,Recovery of Staff Advances,4210,Programme Recoveries and Other Income,Income,Profit and Loss,,0
+45,4220,0,Recovery of Vendor Overpayments,4220,Programme Recoveries and Other Income,Income,Profit and Loss,,0
+46,4230,0,Bank Interest Income,4230,Programme Recoveries and Other Income,Income,Profit and Loss,,0
+47,5000,0,Expenditure,5000,,Expense,Profit and Loss,,1
+48,5100,0,Programme Delivery Costs,5100,Expenditure,Expense,Profit and Loss,,1
+49,5110,0,Address Enumeration and Capture Costs,5110,Programme Delivery Costs,Expense,Profit and Loss,,0
+50,5120,0,FDT Operations and Data Validation,5120,Programme Delivery Costs,Expense,Profit and Loss,,0
+51,5130,0,Vendor Certificate Payments,5130,Programme Delivery Costs,Expense,Profit and Loss,,0
+52,5140,0,Retention Releases,5140,Programme Delivery Costs,Expense,Profit and Loss,,0
+53,5150,0,Quality Assurance and Verification Costs,5150,Programme Delivery Costs,Expense,Profit and Loss,,0
+54,5200,0,Personnel and Payroll Costs,5200,Expenditure,Expense,Profit and Loss,,1
+55,5210,0,Basic Salaries and Wages,5210,Personnel and Payroll Costs,Expense,Profit and Loss,Payroll,0
+56,5220,0,Field Deployment Allowances,5220,Personnel and Payroll Costs,Expense,Profit and Loss,Payroll,0
+57,5230,0,Pension Employer Contribution,5230,Personnel and Payroll Costs,Expense,Profit and Loss,Payroll,0
+58,5240,0,Training and Capacity Building,5240,Personnel and Payroll Costs,Expense,Profit and Loss,,0
+59,5300,0,Governance and Administration Costs,5300,Expenditure,Expense,Profit and Loss,,1
+60,5310,0,Steering Committee and Governance Meetings,5310,Governance and Administration Costs,Expense,Profit and Loss,,0
+61,5320,0,Legal and Compliance Costs,5320,Governance and Administration Costs,Expense,Profit and Loss,,0
+62,5330,0,Audit and Assurance Costs,5330,Governance and Administration Costs,Expense,Profit and Loss,,0
+63,5340,0,Travel and Monitoring Visits,5340,Governance and Administration Costs,Expense,Profit and Loss,,0
+64,5400,0,Technology and Platform Costs,5400,Expenditure,Expense,Profit and Loss,,1
+65,5410,0,AIPMS Implementation Costs,5410,Technology and Platform Costs,Expense,Profit and Loss,,0
+66,5420,0,Hosting and Infrastructure Costs,5420,Technology and Platform Costs,Expense,Profit and Loss,,0
+67,5430,0,Software Support and Maintenance,5430,Technology and Platform Costs,Expense,Profit and Loss,,0
+68,5440,0,Cybersecurity and Penetration Testing,5440,Technology and Platform Costs,Expense,Profit and Loss,,0
+69,5500,0,Tax and Deduction Expense Controls,5500,Expenditure,Expense,Profit and Loss,,1
+70,5510,0,Withholding Tax Expense Review,5510,Tax and Deduction Expense Controls,Expense,Profit and Loss,,0
+71,5520,0,VAT Non-Recoverable Expense,5520,Tax and Deduction Expense Controls,Expense,Profit and Loss,,0
