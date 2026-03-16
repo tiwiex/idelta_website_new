@@ -238,6 +238,18 @@
             line-height: 1.35;
         }
 
+        .screen-only {
+            display: block;
+        }
+
+        .print-only {
+            display: none;
+        }
+
+        .diagram-print {
+            background: #ffffff;
+        }
+
         .infra-diagram {
             background:
                 radial-gradient(circle at top right, rgba(98, 171, 205, 0.16), transparent 26%),
@@ -681,6 +693,27 @@
                 page-break-inside: avoid;
             }
 
+            .screen-only {
+                display: none !important;
+            }
+
+            .print-only {
+                display: block !important;
+            }
+
+            .diagram-print {
+                break-inside: auto !important;
+                page-break-inside: auto !important;
+                box-shadow: none;
+                padding: 0.35rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .print-page-break {
+                break-before: page;
+                page-break-before: always;
+            }
+
             .architecture-grid {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
                 gap: 0.6rem;
@@ -721,6 +754,30 @@
                 color: inherit;
                 text-decoration: none;
             }
+        }
+
+        .architecture-print img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: #fff;
+            max-height: 168mm;
+            object-fit: contain;
+            margin: 0 auto;
+        }
+
+        .cicd-print img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: #fff;
+            max-height: 150mm;
+            object-fit: contain;
+            margin: 0 auto;
         }
     </style>
 </head>
@@ -1600,6 +1657,7 @@
 </table>
 
 <h3>C.13 System Architecture Design</h3>
+<div class="screen-only">
 <div class="architecture-grid">
     <div class="arch-layer arch-users">
         <div class="arch-title">1. User Layer</div>
@@ -1723,8 +1781,14 @@
         <div class="arch-step">Dashboards, Certificates, Reports, and Audit Outputs Generated</div>
     </div>
 </div>
+</div>
 
-<div class="infra-diagram">
+<div class="card architecture-print diagram-print print-only">
+    <div class="card-header">System Architecture Design</div>
+    <img src="/proposal/AIPMS/Architecture-Screenshot_20260316_011908.png" alt="AIPMS system architecture design diagram">
+</div>
+
+<div class="infra-diagram screen-only">
     <div class="card-header">CI/CD and Disaster Recovery Flow</div>
     <p class="muted">Focused schematic showing how approved releases move through staging into production, and how the same controlled pipeline supports rollback and disaster-recovery rebuild to a known release state.</p>
 
@@ -1852,6 +1916,11 @@
             </ul>
         </div>
     </div>
+</div>
+
+<div class="card cicd-print diagram-print print-only print-page-break">
+    <div class="card-header">CI/CD and Disaster Recovery Flow</div>
+    <img src="/proposal/AIPMS/ci-cd-Screenshot_20260316_032100.png" alt="AIPMS CI/CD and disaster recovery flow diagram">
 </div>
 
 <h2 id="section-d" class="page-break">Section D: Project Plan & Delivery Timeline</h2>

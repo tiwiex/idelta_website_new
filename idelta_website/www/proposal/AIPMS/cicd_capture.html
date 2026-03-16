@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIPMS CI/CD and DR Flow</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --ink: #163041;
+            --ink-soft: #345468;
+            --accent-strong: #17475f;
+            --border: #c9dce8;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            padding: 18px;
+            background: #ffffff;
+            color: var(--ink);
+        }
+
+        .card-header {
+            font-weight: 700;
+            font-size: 22px;
+            color: var(--ink);
+            margin-bottom: 8px;
+        }
+
+        .muted {
+            color: var(--ink-soft);
+            font-size: 14px;
+            line-height: 1.45;
+            margin-bottom: 16px;
+        }
+
+        .infra-diagram {
+            background:
+                radial-gradient(circle at top right, rgba(98, 171, 205, 0.16), transparent 26%),
+                linear-gradient(180deg, #eef7fc, #ffffff);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 18px 18px 22px;
+        }
+
+        .infra-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 16px;
+            align-items: stretch;
+            margin-top: 14px;
+        }
+
+        .infra-box {
+            background: linear-gradient(180deg, #ffffff, #f9fcfe);
+            border: 1px solid #d3e4ee;
+            border-radius: 18px;
+            padding: 15px 14px 14px;
+            box-shadow: 0 10px 24px rgba(15, 46, 66, 0.06);
+            overflow: hidden;
+        }
+
+        .infra-tag {
+            display: inline-block;
+            margin-bottom: 9px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #e7f4fb, #d9edf7);
+            color: var(--accent-strong);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+        }
+
+        .infra-head {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .infra-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1e668d, #17475f);
+            color: #fff;
+            box-shadow: 0 10px 20px rgba(23, 77, 107, 0.18);
+            flex: 0 0 auto;
+        }
+
+        .infra-icon svg {
+            width: 22px;
+            height: 22px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 1.9;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .infra-box h4 {
+            margin: 0 0 5px;
+            color: var(--ink);
+            font-size: 18px;
+        }
+
+        .infra-micro {
+            font-size: 12px;
+            color: var(--ink-soft);
+        }
+
+        ul {
+            padding-left: 18px;
+            margin-top: 8px;
+            color: var(--ink-soft);
+            line-height: 1.45;
+            font-size: 13px;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        .infra-arrow-row {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 16px;
+            margin: 6px 0 2px;
+            text-align: center;
+            color: #3b8ab0;
+            font-weight: 700;
+            font-size: 26px;
+        }
+
+        .infra-footer {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="infra-diagram">
+        <div class="card-header">CI/CD and Disaster Recovery Flow</div>
+        <p class="muted">Focused schematic showing how approved releases move through staging into production, and how the same controlled pipeline supports rollback and disaster-recovery rebuild to a known release state.</p>
+
+        <div class="infra-grid">
+            <div class="infra-box">
+                <span class="infra-tag">1. SOURCE</span>
+                <div class="infra-head">
+                    <div class="infra-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M8 7a3 3 0 1 0-3 3"/><path d="M16 17a3 3 0 1 0 3-3"/><path d="M8 7v10"/><path d="M8 17h8"/></svg>
+                    </div>
+                    <div>
+                        <h4>Version-Controlled Release</h4>
+                        <div class="infra-micro">Approved source and release tag</div>
+                    </div>
+                </div>
+                <ul>
+                    <li>Custom app code and configuration changes committed to source control</li>
+                    <li>Approved release package tagged for deployment</li>
+                </ul>
+            </div>
+            <div class="infra-box">
+                <span class="infra-tag">2. VALIDATE</span>
+                <div class="infra-head">
+                    <div class="infra-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M4 12h5l2-5 3 10 2-5h4"/><path d="M4 5h16"/><path d="M4 19h16"/></svg>
+                    </div>
+                    <div>
+                        <h4>CI Build and Test</h4>
+                        <div class="infra-micro">Automated quality gate before release</div>
+                    </div>
+                </div>
+                <ul>
+                    <li>Automated build, packaging, and quality checks</li>
+                    <li>Staging deployment for verification before production release</li>
+                </ul>
+            </div>
+            <div class="infra-box">
+                <span class="infra-tag">3. RELEASE</span>
+                <div class="infra-head">
+                    <div class="infra-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/><path d="M5 5v14"/></svg>
+                    </div>
+                    <div>
+                        <h4>Production Deployment</h4>
+                        <div class="infra-micro">Controlled promotion into live service</div>
+                    </div>
+                </div>
+                <ul>
+                    <li>Controlled promotion of approved release to production</li>
+                    <li>Monitoring, smoke tests, and release confirmation</li>
+                </ul>
+            </div>
+            <div class="infra-box">
+                <span class="infra-tag">4. RECOVER</span>
+                <div class="infra-head">
+                    <div class="infra-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.3-5.6"/><path d="M4 4v5h5"/></svg>
+                    </div>
+                    <div>
+                        <h4>Rollback or DR Rebuild</h4>
+                        <div class="infra-micro">Return to known approved state</div>
+                    </div>
+                </div>
+                <ul>
+                    <li>Restore database and storage from backup set</li>
+                    <li>Redeploy approved application release through the same pipeline</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="infra-arrow-row" aria-hidden="true">
+            <div>→</div>
+            <div>→</div>
+            <div>→</div>
+            <div>&nbsp;</div>
+        </div>
+
+        <div class="infra-footer">
+            <div class="infra-box">
+                <span class="infra-tag">BACKUP</span>
+                <div class="infra-head">
+                    <div class="infra-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M4 7h16"/><path d="M6 7l1 10h10l1-10"/><path d="M9 7V5h6v2"/><path d="M10 11v4"/><path d="M14 11v4"/></svg>
+                    </div>
+                    <div>
+                        <h4>Protected Recovery Data</h4>
+                        <div class="infra-micro">Backup set and PITR readiness</div>
+                    </div>
+                </div>
+                <ul>
+                    <li>Nightly encrypted backups and point-in-time recovery logs</li>
+                    <li>Secondary backup copy and restore verification</li>
+                </ul>
+            </div>
+            <div class="infra-box">
+                <span class="infra-tag">CONTROL</span>
+                <div class="infra-head">
+                    <div class="infra-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V7l8-4z"/><path d="M9.5 12.5l1.8 1.8 3.2-4"/></svg>
+                    </div>
+                    <div>
+                        <h4>Change and Release Governance</h4>
+                        <div class="infra-micro">Approved promotion and rollback control</div>
+                    </div>
+                </div>
+                <ul>
+                    <li>Approved release state documented for production</li>
+                    <li>Rollback path maintained for failed deployments</li>
+                </ul>
+            </div>
+            <div class="infra-box">
+                <span class="infra-tag">OUTCOME</span>
+                <div class="infra-head">
+                    <div class="infra-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M4 12h4l2-4 4 8 2-4h4"/><path d="M4 5h16"/></svg>
+                    </div>
+                    <div>
+                        <h4>Operational Continuity</h4>
+                        <div class="infra-micro">Recovered environment resumes service</div>
+                    </div>
+                </div>
+                <ul>
+                    <li>Recovered environment returns to a known approved version</li>
+                    <li>Application, data, and support runbook restored together</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
